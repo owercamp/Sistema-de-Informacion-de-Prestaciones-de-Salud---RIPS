@@ -1,0 +1,14 @@
+{
+    "app_name": "RIPS",
+    "description": "",
+    "author": "Ower A Campos",
+    "email": "ower.campos@soandes.edu.co",
+    "create_ate": "Wed Nov 02 2022 11:59:56 GMT-0500 (hora estándar de Colombia)",
+    "excel_file": "Reportes RIPS.xlsb",
+    "vba_folder": "vba-files",
+    "ribbon_file": "customUI14",
+    "ribbon_folder": "ribbons",
+    "logs": "on",
+    "xvba_packages": {},
+    "xvba_dev_packages": {}
+}
