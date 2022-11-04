@@ -65,102 +65,102 @@ Sub iMedical()
           End With
           Do While Not IsEmpty(ActiveCell)
             If item = "MEDELLIN" Then: ActiveCell.Offset(, 2) = "05001"
-            If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 2) = "50000"
-            If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" Then: ActiveCell.Offset(, 2) = "SDS001"
-            If item = "PEREIRA" Then: ActiveCell.Offset(, 2) = "66001"
-            ActiveCell.Offset(1, 0).Select
-          Loop
-          Cells.Select
-          Cells.EntireColumn.AutoFit
-          Range("A1").Select
-          Selection.End(xlDown).Select
-          ThisWorkbook.Connections(nameArchive(0)).Delete
-        ElseIf (VBA.InStr(itemArchive.Name, "AF") = 1) Then
-        '/* Proceso para la hoja Trans '*/
-          ThisWorkbook.Worksheets("TRANS").Select
-          nameArchive = VBA.Split(itemArchive.Name,".")
-          Range("A1").Select
-          Selection.End(xlDown).Select
-          ActiveCell.Offset(1, 0).Select
-          destiny = ActiveCell.Address
-          With ActiveSheet.QueryTables.Add(Connection:= _
-            route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
-            , Destination:=Range(destiny))
-            .Name = nameArchive(0)
-            .TextFilePlatform = 65001
-            .TextFileCommaDelimiter = True
-            .TextFileSpaceDelimiter = False
-            .TextFileColumnDataTypes = Array(2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-            .TextFileTrailingMinusNumbers = True
-            .Refresh BackgroundQuery:=False
-          End With
-          Do While Not IsEmpty(ActiveCell)
-            If item = "MEDELLIN" Then: ActiveCell.Offset(, 8) = "05001"
-            If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 8) = "50000"
-            If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" Then: ActiveCell.Offset(, 8) = "SDS001"
-            If item = "PEREIRA" Then: ActiveCell.Offset(, 8) = "66001"
-            ActiveCell.Offset(1, 0).Select
-          Loop
-          Cells.Select
-          Cells.EntireColumn.AutoFit
-          Range("A1").Select
-          Selection.End(xlDown).Select
-          ThisWorkbook.Connections(nameArchive(0)).Delete
-        ElseIf (VBA.InStr(itemArchive.Name, "AC") = 1) Then
-          '/* Proceso para la hoja Consulta '*/
-            ThisWorkbook.Worksheets("CONSULTA").Select
-            nameArchive = VBA.Split(itemArchive.Name,".")
-            Range("A1").Select
-            Selection.End(xlDown).Select
-            ActiveCell.Offset(1, 0).Select
-            destiny = ActiveCell.Address
-            With ActiveSheet.QueryTables.Add(Connection:= _
-              route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
-              , Destination:=Range(destiny))
-              .Name = nameArchive(0)
-              .TextFilePlatform = 65001
-              .TextFileCommaDelimiter = True
-              .TextFileSpaceDelimiter = False
-              .TextFileColumnDataTypes = Array(1, 2, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-              .TextFileTrailingMinusNumbers = True
-              .Refresh BackgroundQuery:=False
-            End With
-            Cells.Select
-            Cells.EntireColumn.AutoFit
-            Range("A1").Select
-            Selection.End(xlDown).Select
-            ThisWorkbook.Connections(nameArchive(0)).Delete
-          ElseIf (VBA.InStr(itemArchive.Name, "AP") = 1) Then
-            '/* Proceso para la hoja Procedimiento '*/
-              ThisWorkbook.Worksheets("PROCEDIMIENTOS").Select
-              nameArchive = VBA.Split(itemArchive.Name,".")
-              Range("A1").Select
-              Selection.End(xlDown).Select
-              ActiveCell.Offset(1, 0).Select
-              destiny = ActiveCell.Address
-              With ActiveSheet.QueryTables.Add(Connection:= _
-                route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
-                , Destination:=Range(destiny))
-                .Name = nameArchive(0)
-                .TextFilePlatform = 65001
-                .TextFileCommaDelimiter = True
-                .TextFileSpaceDelimiter = False
-                .TextFileColumnDataTypes = Array(1, 2, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-                .TextFileTrailingMinusNumbers = True
-                .Refresh BackgroundQuery:=False
-              End With
-              Cells.Select
-              Cells.EntireColumn.AutoFit
-              Range("A1").Select
-              Selection.End(xlDown).Select
-              ThisWorkbook.Connections(nameArchive(0)).Delete
-        End If
-      Next itemArchive
-    End If
-  Next item
+              If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 2) = "50000"
+                If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" Then: ActiveCell.Offset(, 2) = "SDS001"
+                  If item = "PEREIRA" Then: ActiveCell.Offset(, 2) = "66001"
+                    ActiveCell.Offset(1, 0).Select
+                  Loop
+                  Cells.Select
+                  Cells.EntireColumn.AutoFit
+                  Range("A1").Select
+                  Selection.End(xlDown).Select
+                  ThisWorkbook.Connections(nameArchive(0)).Delete
+                ElseIf (VBA.InStr(itemArchive.Name, "AF") = 1) Then
+                  '/* Proceso para la hoja Trans '*/
+                  ThisWorkbook.Worksheets("TRANS").Select
+                  nameArchive = VBA.Split(itemArchive.Name,".")
+                  Range("A1").Select
+                  Selection.End(xlDown).Select
+                  ActiveCell.Offset(1, 0).Select
+                  destiny = ActiveCell.Address
+                  With ActiveSheet.QueryTables.Add(Connection:= _
+                    route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+                    , Destination:=Range(destiny))
+                    .Name = nameArchive(0)
+                    .TextFilePlatform = 65001
+                    .TextFileCommaDelimiter = True
+                    .TextFileSpaceDelimiter = False
+                    .TextFileColumnDataTypes = Array(2, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+                    .TextFileTrailingMinusNumbers = True
+                    .Refresh BackgroundQuery:=False
+                  End With
+                  Do While Not IsEmpty(ActiveCell)
+                    If item = "MEDELLIN" Then: ActiveCell.Offset(, 8) = "05001"
+                      If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 8) = "50000"
+                        If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" Then: ActiveCell.Offset(, 8) = "SDS001"
+                          If item = "PEREIRA" Then: ActiveCell.Offset(, 8) = "66001"
+                            ActiveCell.Offset(1, 0).Select
+                          Loop
+                          Cells.Select
+                          Cells.EntireColumn.AutoFit
+                          Range("A1").Select
+                          Selection.End(xlDown).Select
+                          ThisWorkbook.Connections(nameArchive(0)).Delete
+                        ElseIf (VBA.InStr(itemArchive.Name, "AC") = 1) Then
+                          '/* Proceso para la hoja Consulta '*/
+                          ThisWorkbook.Worksheets("CONSULTA").Select
+                          nameArchive = VBA.Split(itemArchive.Name,".")
+                          Range("A1").Select
+                          Selection.End(xlDown).Select
+                          ActiveCell.Offset(1, 0).Select
+                          destiny = ActiveCell.Address
+                          With ActiveSheet.QueryTables.Add(Connection:= _
+                            route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+                            , Destination:=Range(destiny))
+                            .Name = nameArchive(0)
+                            .TextFilePlatform = 65001
+                            .TextFileCommaDelimiter = True
+                            .TextFileSpaceDelimiter = False
+                            .TextFileColumnDataTypes = Array(1, 2, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+                            .TextFileTrailingMinusNumbers = True
+                            .Refresh BackgroundQuery:=False
+                          End With
+                          Cells.Select
+                          Cells.EntireColumn.AutoFit
+                          Range("A1").Select
+                          Selection.End(xlDown).Select
+                          ThisWorkbook.Connections(nameArchive(0)).Delete
+                        ElseIf (VBA.InStr(itemArchive.Name, "AP") = 1) Then
+                          '/* Proceso para la hoja Procedimiento '*/
+                          ThisWorkbook.Worksheets("PROCEDIMIENTOS").Select
+                          nameArchive = VBA.Split(itemArchive.Name,".")
+                          Range("A1").Select
+                          Selection.End(xlDown).Select
+                          ActiveCell.Offset(1, 0).Select
+                          destiny = ActiveCell.Address
+                          With ActiveSheet.QueryTables.Add(Connection:= _
+                            route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+                            , Destination:=Range(destiny))
+                            .Name = nameArchive(0)
+                            .TextFilePlatform = 65001
+                            .TextFileCommaDelimiter = True
+                            .TextFileSpaceDelimiter = False
+                            .TextFileColumnDataTypes = Array(1, 2, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+                            .TextFileTrailingMinusNumbers = True
+                            .Refresh BackgroundQuery:=False
+                          End With
+                          Cells.Select
+                          Cells.EntireColumn.AutoFit
+                          Range("A1").Select
+                          Selection.End(xlDown).Select
+                          ThisWorkbook.Connections(nameArchive(0)).Delete
+                        End If
+                      Next itemArchive
+                    End If
+                  Next item
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+                  Application.ScreenUpdating = True
+                  Application.Calculation = xlCalculationAutomatic
+                  Application.EnableEvents = True
 
 End Sub
