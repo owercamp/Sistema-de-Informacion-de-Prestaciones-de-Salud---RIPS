@@ -52,15 +52,9 @@ Sub FECHA_TRANS()
     Sheets("TRANS").Select
     
     Range("F2").Select
-    ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-1],USUARIO!C[9]:C[12],4,0)"
-    Selection.Copy
-    Range(Selection, Selection.End(xlDown)).Select
-    ActiveSheet.Paste
-    Application.Calculation = xlCalculationAutomatic
-    Application.Calculation = xlCalculationManual
-    Selection.Copy
-    Selection.PasteSpecial Paste:=xlPasteValues
-    
+    Range(Selection,Selection.End(xlDown)).Select
+    Selection.NumberFormat = "dd/mm/yyyy"
+
     Range("G2").Select
     ActiveCell.FormulaR1C1 = "=""01/""&TEXT(EOMONTH(TODAY(),-1),""MM""&""/""&""YYYY"")"
     Selection.Copy

@@ -26,13 +26,14 @@ Sub LimpiezaDiag()
 
   Worksheets("CONSULTA").Select
 
-  Application.ScreenUpdating = False
+  Application.ScreenUpdating = True
   Application.Calculation = xlCalculationManual
   Application.EnableEvents = False
 
   Range("J2").Select
   '' LIMPIEZA DE LAS CELDAS J, K, L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA I ''
   Do While Not IsEmpty(ActiveCell)
+    On Error GoTo Error2042
     If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 1) = Empty
       If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 2) = Empty
         If Trim(ActiveCell.Offset(0, 3)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 3) = Empty
@@ -112,6 +113,9 @@ Sub LimpiezaDiag()
                       Application.ScreenUpdating = True
                       Application.Calculation = xlCalculationAutomatic
                       Application.EnableEvents = True
+
+ Error2042:
+                      Resume Next
 
 End Sub
 
