@@ -115,7 +115,8 @@ End Sub
 Sub CAMBIAR_ID_PROCEDIMIENTOS()
 
     Range("D2").Select
-    ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-3],USUARIO!C[11]:C[18],8,0)"
+    ActiveCell.FormulaR1C1 = _
+        "=INDEX(USUARIO!R2C2:R1048576C15,MATCH(PROCEDIMIENTOS!RC1,USUARIO!R2C15:R1048576C15,0),1)"
     Range("D2").Select
     Selection.Copy
     Range(Selection, Selection.End(xlDown)).Select
