@@ -176,6 +176,10 @@ Sub cleanData()
   book.Worksheets("PROCEDIMIENTOS").Select
   Call ranges
 
+  '' LIMPIA LA HOJA DIAG ''
+  book.Worksheets("DIAG").Select
+  Call ranges
+
   book.Worksheets("USUARIO").Select
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
