@@ -195,7 +195,7 @@ Sub ranges()
   Dim ranges As Range
 
   Range("A2").Select
-  Range("A2", "W2").Select
+  Range("A2", "Z2").Select
   Range(Range(Selection.Address), Range(Selection.Address).End(xlDown)).Select
   Selection.Clear
   Range("A2").Select

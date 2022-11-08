@@ -363,14 +363,14 @@ Sub importInfo()
     Application.Calculation = xlCalculationManual
     Application.EnableEvents = False
             
-    dirs = ThisWorkbook.Path
+    dirs = ThisWorkbook.Worksheets("Sedes").Range("$G$4").value
     
     Set Reporte = ThisWorkbook
     
     On Error GoTo Usuario
     Set Usuario = Workbooks.Open(dirs & "\usuario.csv")
     Range("A2").Select
-    Range("A2", "Z2").Select
+    ' Range("A2", "Z2").Select
     Range(Selection, Selection.End(xlDown)).Select
     Selection.Copy
     
@@ -386,7 +386,7 @@ Sub importInfo()
     
     Set Trans = Workbooks.Open(dirs & "\trans.csv")
     Range("A2").Select
-    Range("A2", "Z2").Select
+    ' Range("A2", "Z2").Select
     Range(Selection, Selection.End(xlDown)).Select
     Selection.Copy
     
@@ -403,7 +403,7 @@ Sub importInfo()
     On Error GoTo Consulta
     Set Consulta = Workbooks.Open(dirs & "\consulta.csv")
     Range("A2").Select
-    Range("A2", "Z2").Select
+    ' Range("A2", "Z2").Select
     Range(Selection, Selection.End(xlDown)).Select
     Selection.Copy
     
@@ -420,7 +420,7 @@ Sub importInfo()
     On Error GoTo Procedimiento
     Set Procedimiento = Workbooks.Open(dirs & "\procedimiento.csv")
     Range("A2").Select
-    Range("A2", "Z2").Select
+    ' Range("A2", "Z2").Select
     Range(Selection, Selection.End(xlDown)).Select
     Selection.Copy
     
@@ -433,23 +433,7 @@ Sub importInfo()
     Range("A2").Select
     Call splitProcedure
     Procedimiento.Close
-    
-    On Error GoTo Diagnostico
-    Set Diagnostico = Workbooks.Open(dirs & "\diagnostico.csv")
-    Range("A2").Select
-    Range("A2", "Z2").Select
-    Range(Selection, Selection.End(xlDown)).Select
-    Selection.Copy
-    
-    '' CONSULTA ''
-    Windows(Reporte.Name).Activate
-    Reporte.Worksheets("DIAG").Select
-    Range("A2").Select
-    ActiveSheet.Paste
-    Application.CutCopyMode = False
-    Range("A2").Select
-    Diagnostico.Close
-        
+            
     Application.ScreenUpdating = True
     Application.Calculation = xlCalculationAutomatic
     Application.EnableEvents = True
