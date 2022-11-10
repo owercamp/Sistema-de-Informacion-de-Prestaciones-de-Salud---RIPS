@@ -132,7 +132,7 @@ Sub TRAER_DIAG()
     Sheets("CONSULTA").Select
     ActiveWorkbook.Worksheets("CONSULTA").AutoFilter.Sort.SortFields.Clear
     ActiveWorkbook.Worksheets("CONSULTA").AutoFilter.Sort.SortFields.Add Key:= _
-    Range("J1:J3592"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption _
+    Range("J1:J500000"), SortOn:=xlSortOnValues, Order:=xlAscending, DataOption _
     :=xlSortNormal
     With ActiveWorkbook.Worksheets("CONSULTA").AutoFilter.Sort
         .Header = xlYes

@@ -1,16 +1,20 @@
 Attribute VB_Name = "ExportArchives"
+
+Public DIRECTORY As String
+
 Sub Usuario()
 
     Set f = CreateObject("scripting.filesystemobject")
+    DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
     Application.DisplayAlerts = False
     Sheets("USUARIO").Select
     Usuarios = ActiveWorkbook.Name
     Sheets("USUARIO").Copy
-    ChDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\"
-    If Not f.folderexists("C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\") Then
-    MkDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\"
+    ChDir DIRECTORY & Application.PathSeparator
+    If Not f.folderexists(DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator) Then
+    MkDir DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator
     End If
-    ActiveWorkbook.SaveAs Filename:="C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\" & Workbooks(Usuarios).Sheets("ARCHIVO DE CONTROL").Cells(2, 3) & ".TXT", FileFormat:=xlCSV
+    ActiveWorkbook.SaveAs Filename:=DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator & Workbooks(Usuarios).Sheets("ARCHIVO DE CONTROL").Cells(2, 3) & ".TXT", FileFormat:=xlCSV
     Rows("1:1").Select
     Selection.Delete Shift:=xlUp
     Columns("O:BB").Select
@@ -23,15 +27,16 @@ End Sub
 Sub Trans()
 
     Set f = CreateObject("scripting.filesystemobject")
+    DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
     Application.DisplayAlerts = False
     Sheets("TRANS").Select
     Tran = ActiveWorkbook.Name
     Sheets("TRANS").Copy
-    ChDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\"
-    If Not f.folderexists("C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\") Then
-    MkDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\"
+    ChDir DIRECTORY & Application.PathSeparator
+    If Not f.folderexists(DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator) Then
+    MkDir DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator
     End If
-    ActiveWorkbook.SaveAs Filename:="C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\" & Workbooks(Tran).Sheets("ARCHIVO DE CONTROL").Cells(3, 3) & ".TXT", FileFormat:=xlCSV
+    ActiveWorkbook.SaveAs Filename:=DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator & Workbooks(Tran).Sheets("ARCHIVO DE CONTROL").Cells(3, 3) & ".TXT", FileFormat:=xlCSV
     Rows("1:1").Select
     Selection.Delete Shift:=xlUp
     ActiveWorkbook.Save
@@ -42,15 +47,16 @@ End Sub
 Sub Consulta()
 
     Set f = CreateObject("scripting.filesystemobject")
+    DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
     Application.DisplayAlerts = False
     Sheets("CONSULTA").Select
     consultas = ActiveWorkbook.Name
     Sheets("CONSULTA").Copy
-    ChDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\"
-    If Not f.folderexists("C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\") Then
-    MkDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\"
+    ChDir DIRECTORY & Application.PathSeparator
+    If Not f.folderexists(DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator) Then
+    MkDir DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator
     End If
-    ActiveWorkbook.SaveAs Filename:="C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\" & Workbooks(consultas).Sheets("ARCHIVO DE CONTROL").Cells(4, 3) & ".TXT", FileFormat:=xlCSV
+    ActiveWorkbook.SaveAs Filename:=DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator & Workbooks(consultas).Sheets("ARCHIVO DE CONTROL").Cells(4, 3) & ".TXT", FileFormat:=xlCSV
     Rows("1:1").Select
     Selection.Delete Shift:=xlUp
     ActiveWorkbook.Save
@@ -61,15 +67,16 @@ End Sub
 Sub PROCEDIMIENTOS()
 
     Set f = CreateObject("scripting.filesystemobject")
+    DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
     Application.DisplayAlerts = False
     Sheets("PROCEDIMIENTOS").Select
     Procedimiento = ActiveWorkbook.Name
     Sheets("PROCEDIMIENTOS").Copy
-    ChDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\"
-    If Not f.folderexists("C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\") Then
-    MkDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\"
+    ChDir DIRECTORY & Application.PathSeparator
+    If Not f.folderexists(DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator) Then
+    MkDir DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator
     End If
-    ActiveWorkbook.SaveAs Filename:="C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\" & Workbooks(Procedimiento).Sheets("ARCHIVO DE CONTROL").Cells(5, 3) & ".TXT", FileFormat:=xlCSV
+    ActiveWorkbook.SaveAs Filename:=DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator & Workbooks(Procedimiento).Sheets("ARCHIVO DE CONTROL").Cells(5, 3) & ".TXT", FileFormat:=xlCSV
     Rows("1:1").Select
     Selection.Delete Shift:=xlUp
     ActiveWorkbook.Save
@@ -80,15 +87,16 @@ End Sub
 Sub CONTROL()
 
     Set f = CreateObject("scripting.filesystemobject")
+    DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
     Application.DisplayAlerts = False
     Sheets("ARCHIVO DE CONTROL").Select
     controles = ActiveWorkbook.Name
     Sheets("ARCHIVO DE CONTROL").Copy
-    ChDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\"
-    If Not f.folderexists("C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\") Then
-    MkDir "C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\"
+    ChDir DIRECTORY & Application.PathSeparator
+    If Not f.folderexists(DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator) Then
+    MkDir DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator
     End If
-    ActiveWorkbook.SaveAs Filename:="C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\" & Workbooks(controles).Sheets("REFERENCIAS").Cells(1, 19) & ".TXT", FileFormat:=xlCSV
+    ActiveWorkbook.SaveAs Filename:=DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator & Workbooks(controles).Sheets("REFERENCIAS").Cells(1, 19) & ".TXT", FileFormat:=xlCSV
     Rows("1:1").Select
     Selection.Delete Shift:=xlUp
     ActiveWorkbook.Save
@@ -101,14 +109,16 @@ Sub Zip_All_Files_in_Folder()
     Dim strDate As String, DefPath As String
     Dim oApp As Object
 
+    DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
+
     DefPath = Application.DefaultFilePath
     If Right(DefPath, 1) <> "\" Then
         DefPath = DefPath & "\"
     End If
 
-    FolderName = "C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\"
+    FolderName = DIRECTORY & Application.PathSeparator & "RIPS" & Application.PathSeparator
 
-    FileNameZip = "C:\Users\SOANDES-DSOFT\Documents\Particion D\" & "RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT" & ".zip"
+    FileNameZip = DIRECTORY & Application.PathSeparator & "RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT" & ".zip"
 
     'Create empty Zip File
     NewZip (FileNameZip)
@@ -134,12 +144,14 @@ Sub Zip_File_Or_Files()
     Dim oApp As Object, iCtr As Long, I As Integer
     Dim FName, vArr, FileNameZip
 
+    DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
+
     DefPath = Application.DefaultFilePath
     If Right(DefPath, 1) <> "\" Then
         DefPath = DefPath & "\"
     End If
 
-    FileNameZip = "C:\Users\SOANDES-DSOFT\Documents\Particion D\" & "RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT" & ".zip"
+    FileNameZip = DIRECTORY & Application.PathSeparator & "RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT" & ".zip"
 
     'Browse to the file(s), use the Ctrl key to select more files
     FName = Application.GetOpenFilename(filefilter:="Text Files (*.txt*), *.txt*", _
@@ -202,12 +214,13 @@ End Function
 Sub MACRO1()
 
     Set f = CreateObject("scripting.filesystemobject")
+    DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
     Application.EnableEvents = False        'desactivar eventos
     Application.ScreenUpdating = False      'desactivar monitor
     Application.DisplayAlerts = False       'desactivar alertas
     
-    If f.fileexists("C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT") Then
-    Kill ("C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT")
+    If f.fileexists(DIRECTORY & Application.PathSeparator & "RIPS\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT") Then
+    Kill (DIRECTORY & Application.PathSeparator & "RIPS\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT")
     End If
         libroMatriz = ActiveWorkbook.Name
         Call Usuario
@@ -217,7 +230,7 @@ Sub MACRO1()
         Call CONTROL
         Call Zip_All_Files_in_Folder
 
-        Name "C:\Users\SOANDES-DSOFT\Documents\Particion D\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT.ZIP" As "C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT" 'mover archivo en d para d\rips
+        Name DIRECTORY & Application.PathSeparator & "RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT.ZIP" As DIRECTORY & Application.PathSeparator & "RIPS\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT" 'mover archivo en d para d\rips
 
     Sheets("REFERENCIAS").Select
     
@@ -440,7 +453,7 @@ Sub importInfo()
     
     Reporte.Worksheets("USUARIO").Select
     
-    route = ThisWorkbook.Worksheets("Sedes").Range("F3").Value
+    route = ThisWorkbook.Worksheets("Sedes").Range("$G$3").Value
     
     monthNow = Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
     montNumber = Month(Date) - 2
