@@ -3,4 +3,8 @@
 
 ## Sistema de Información Prestaciones de salud
 
-![vba](https://img.shields.io/badge/vba-SOANDES-rgb(255,255,255)?labelColor=rgba(9,95,154,255)&style=for-the-badge)
+libro de excel en el cual se procesa la información para ser entregada a la **SUPERSALUD**
+
+asi poder validar la atención de pacientes mes a mes.
+
+:+1: excelente
