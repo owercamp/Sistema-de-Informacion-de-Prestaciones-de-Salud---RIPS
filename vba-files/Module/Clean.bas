@@ -254,7 +254,7 @@ Sub ClearCharter()
 
   ActiveWorkbook.Worksheets("USUARIO").Select
 
-  data = Array(Chr(193), Chr(192), Chr(200), Chr(201), Chr(204), Chr(205), Chr(210), Chr(211), Chr(217), Chr(218), Chr(44), Chr(46), Chr(147), Chr(13), Chr(10), Chr(160) & Chr(160), Chr(92), Chr(47), Chr(45),Chr(209),Chr(66))
+  data = Array(Chr(193), Chr(192), Chr(200), Chr(201), Chr(204), Chr(205), Chr(210), Chr(211), Chr(217), Chr(218), Chr(44), Chr(46), Chr(147), Chr(13), Chr(10), Chr(160) & Chr(160), Chr(92), Chr(47), Chr(45),Chr(209),Chr(66),Chr(145),Chr(39))
   
   Select Case ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").Value
    Case 0
@@ -356,6 +356,14 @@ Sub ClearCharter()
   ' ReplaceFormat:=False
   ' Salto de linea
   Selection.Replace What:=data(14), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' Comilla simple B
+  Selection.Replace What:=data(19), Replacement:=" ", LookAt:=xlPart, _
+  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+  ReplaceFormat:=False
+  ' Comilla simple A
+  Selection.Replace What:=data(20), Replacement:=" ", LookAt:=xlPart, _
   SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
   ReplaceFormat:=False
 

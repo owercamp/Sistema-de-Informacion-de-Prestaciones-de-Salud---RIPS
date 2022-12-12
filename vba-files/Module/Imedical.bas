@@ -16,7 +16,7 @@ Sub iMedical()
   Application.EnableEvents = False
 
   ' sedes '
-  headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL")
+  headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL","BOGOTA")
 
   ' cargue del diccionario '
   months.Add 1, "Enero"
@@ -66,7 +66,7 @@ Sub iMedical()
           Do While Not IsEmpty(ActiveCell)
             If item = "MEDELLIN" Then: ActiveCell.Offset(, 2) = "05001"
               If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 2) = "50000"
-                If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" Then: ActiveCell.Offset(, 2) = "SDS001"
+                If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" or item = "BOGOTA" Then: ActiveCell.Offset(, 2) = "SDS001"
                   If item = "PEREIRA" Then: ActiveCell.Offset(, 2) = "66001"
                     ActiveCell.Offset(1, 0).Select
                   Loop
@@ -97,7 +97,7 @@ Sub iMedical()
                   Do While Not IsEmpty(ActiveCell)
                     If item = "MEDELLIN" Then: ActiveCell.Offset(, 8) = "05001"
                       If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 8) = "50000"
-                        If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" Then: ActiveCell.Offset(, 8) = "SDS001"
+                        If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" or item = "BOGOTA" Then: ActiveCell.Offset(, 8) = "SDS001"
                           If item = "PEREIRA" Then: ActiveCell.Offset(, 8) = "66001"
                             ActiveCell.Offset(1, 0).Select
                           Loop
