@@ -64,7 +64,7 @@ Sub iMedical()
             .Refresh BackgroundQuery:=False
           End With
           Do While Not IsEmpty(ActiveCell)
-            If item = "MEDELLIN" Then: ActiveCell.Offset(, 2) = "05001"
+            If item = "MEDELLIN" Then: ActiveCell.Offset(, 2) = "EAS016"
               If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 2) = "50000"
                 If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" or item = "BOGOTA" Then: ActiveCell.Offset(, 2) = "SDS001"
                   If item = "PEREIRA" Then: ActiveCell.Offset(, 2) = "66001"
@@ -95,7 +95,7 @@ Sub iMedical()
                     .Refresh BackgroundQuery:=False
                   End With
                   Do While Not IsEmpty(ActiveCell)
-                    If item = "MEDELLIN" Then: ActiveCell.Offset(, 8) = "05001"
+                    If item = "MEDELLIN" Then: ActiveCell.Offset(, 8) = "EAS016"
                       If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 8) = "50000"
                         If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" or item = "BOGOTA" Then: ActiveCell.Offset(, 8) = "SDS001"
                           If item = "PEREIRA" Then: ActiveCell.Offset(, 8) = "66001"
