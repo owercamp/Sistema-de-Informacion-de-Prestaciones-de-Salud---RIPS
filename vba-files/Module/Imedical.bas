@@ -4,11 +4,10 @@ Option Explicit
 Sub iMedical()
   Attribute iMedical.VB_ProcData.VB_Invoke_Func = " \n14"
 
-  Dim route, destiny, splitRoute As String
-  Dim yearNow, monthNow As Integer
-  Dim months, folder,archives As Object
+  Dim months, route, destiny, splitRoute As String
+  Dim yearNow As Integer
+  Dim folder,archives As Object
   Dim item, headquarters, separateRoute, itemArchive, nameArchive As Variant
-  Set months = CreateObject("Scripting.Dictionary")
   Set folder = CreateObject("Scripting.FileSystemObject")
 
   Application.ScreenUpdating = False
@@ -17,31 +16,46 @@ Sub iMedical()
 
   ' sedes '
   headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL","BOGOTA")
+  yearNow = year(Date)
 
-  ' cargue del diccionario '
-  months.Add 1, "Enero"
-  months.Add 2, "Febrero"
-  months.Add 3, "Marzo"
-  months.Add 4, "Abril"
-  months.Add 5, "Mayo"
-  months.Add 6, "Junio"
-  months.Add 7, "Julio"
-  months.Add 8, "Agosto"
-  months.Add 9, "Septiembre"
-  months.Add 10, "Octubre"
-  months.Add 11, "Noviembre"
-  months.Add 12, "Diciembre"
+  ' seleccion del mes '
+  Select Case Month(Date)
+   Case 1
+    months = "Diciembre"
+    yearNow = yearNow - 1
+   Case 2
+    months = "Enero"
+   Case 3
+    months = "Febrero"
+   Case 4
+    months = "Marzo"
+   Case 5
+    months = "Abril"
+   Case 6
+    months = "Mayo"
+   Case 7
+    months = "Junio"
+   Case 8
+    months = "Julio"
+   Case 9
+    months = "Agosto"
+   Case 10
+    months = "Septiembre"
+   Case 11
+    months = "Octubre"
+   Case 12
+    months = "Noviembre"
+  End Select
+
 
   splitRoute = Application.PathSeparator
   route = "TEXT;C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS_SOANDES"
   separateRoute = VBA.Split(route, ";")
-  yearNow = year(Date)
-  monthNow = Month(Date) - 1
 
   For Each item In headquarters
-    If (folder.FolderExists(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item)) Then
+    If (folder.FolderExists(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)) Then
 
-      set archives = folder.getFolder(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item)
+      set archives = folder.getFolder(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)
 
       For Each itemArchive In archives.Files
         '/* Proceso para la hoja Usuarios '*/
@@ -53,7 +67,7 @@ Sub iMedical()
           ActiveCell.Offset(1, 0).Select
           destiny = ActiveCell.Address
           With ActiveSheet.QueryTables.Add(Connection:= _
-            route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+            route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
             , Destination:=Range(destiny))
             .Name = nameArchive(0)
             .TextFilePlatform = 65001
@@ -84,7 +98,7 @@ Sub iMedical()
                   ActiveCell.Offset(1, 0).Select
                   destiny = ActiveCell.Address
                   With ActiveSheet.QueryTables.Add(Connection:= _
-                    route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+                    route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
                     , Destination:=Range(destiny))
                     .Name = nameArchive(0)
                     .TextFilePlatform = 65001
@@ -115,7 +129,7 @@ Sub iMedical()
                           ActiveCell.Offset(1, 0).Select
                           destiny = ActiveCell.Address
                           With ActiveSheet.QueryTables.Add(Connection:= _
-                            route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+                            route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
                             , Destination:=Range(destiny))
                             .Name = nameArchive(0)
                             .TextFilePlatform = 65001
@@ -139,7 +153,7 @@ Sub iMedical()
                           ActiveCell.Offset(1, 0).Select
                           destiny = ActiveCell.Address
                           With ActiveSheet.QueryTables.Add(Connection:= _
-                            route & splitRoute & yearNow & splitRoute & Ucase(months(monthNow)) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+                            route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
                             , Destination:=Range(destiny))
                             .Name = nameArchive(0)
                             .TextFilePlatform = 65001

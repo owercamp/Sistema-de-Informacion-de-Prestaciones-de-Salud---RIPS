@@ -254,8 +254,8 @@ Sub ClearCharter()
 
   ActiveWorkbook.Worksheets("USUARIO").Select
 
-  data = Array(Chr(193), Chr(192), Chr(200), Chr(201), Chr(204), Chr(205), Chr(210), Chr(211), Chr(217), Chr(218), Chr(44), Chr(46), Chr(147), Chr(13), Chr(10), Chr(160) & Chr(160), Chr(92), Chr(47), Chr(45),Chr(209),Chr(78),Chr(145),Chr(39))
-  
+  data = Array(Chr(193), Chr(192), Chr(200), Chr(201), Chr(204), Chr(205), Chr(210), Chr(211), Chr(217), Chr(218), Chr(44), Chr(46), Chr(147), Chr(13), Chr(10), Chr(160) & Chr(160), Chr(92), Chr(47), Chr(45),Chr(209),Chr(78),Chr(145),Chr(39),chr(78))
+
   Select Case ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").Value
    Case 0
     Cells.Find(What:="lugar_nacimiento", After:=ActiveCell, LookIn:= _
@@ -270,9 +270,9 @@ Sub ClearCharter()
     xlNext, MatchCase:=False, SearchFormat:=False).Activate
     Selection.Offset(1, 0).Select
     Range(Selection, Selection.End(xlDown).Offset(, 3)).Select
-    
+
     ' cambio ñ por n
-    Selection.Replace What:=data(19), Replacement:=data(20), LookAt:=xlPart, _
+    Selection.Replace What:=data(19), Replacement:=data(23), LookAt:=xlPart, _
     SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
     ReplaceFormat:=False
 
