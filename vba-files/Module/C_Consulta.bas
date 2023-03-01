@@ -246,6 +246,7 @@ Sub REEMPLAZAR_CODIGOS()
     Selection.Replace What:="I48X", Replacement:="I489"
     Selection.Replace What:="K359", Replacement:="K358"
     Selection.Replace What:="I845", Replacement:="K648"
+    Selection.Replace What:="K589", Replacement:=""
 
 End Sub
 

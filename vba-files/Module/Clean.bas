@@ -250,115 +250,47 @@ Sub removeRegex()
 End Sub
 
 Sub ClearCharter()
-  Dim data As Variant
 
   ActiveWorkbook.Worksheets("USUARIO").Select
 
-  data = Array(Chr(193), Chr(192), Chr(200), Chr(201), Chr(204), Chr(205), Chr(210), Chr(211), Chr(217), Chr(218), Chr(44), Chr(46), Chr(147), Chr(13), Chr(10), Chr(160) & Chr(160), Chr(92), Chr(47), Chr(45),Chr(209),Chr(78),Chr(145),Chr(39),chr(78))
-
-  Select Case ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").Value
+  Select Case ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value
    Case 0
     Cells.Find(What:="lugar_nacimiento", After:=ActiveCell, LookIn:= _
     xlFormulas, LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:= _
     xlNext, MatchCase:=False, SearchFormat:=False).Activate
     ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 1
     Selection.Offset(1, -2).Select
-    Range(Selection.Offset(, 2), Selection.End(xlDown).Offset(, 2)).Select
-   case 1
+    Do While Not IsEmpty(ActiveCell)
+      ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
+      ActiveCell.Offset(1, 0).Select
+    Loop
+   Case 1
     Cells.Find(What:="primerapellido", After:=ActiveCell, LookIn:= _
     xlFormulas, LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:= _
     xlNext, MatchCase:=False, SearchFormat:=False).Activate
-    Selection.Offset(1, 0).Select
-    Range(Selection, Selection.End(xlDown).Offset(, 3)).Select
-
-    ' cambio ñ por n
-    Selection.Replace What:=data(19), Replacement:=data(23), LookAt:=xlPart, _
-    SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-    ReplaceFormat:=False
-
     ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 0
+    Selection.Offset(1, 0).Select
+    Do While Not IsEmpty(ActiveCell)
+      ActiveCell = ReplaceNonAlphaNumeric(ActiveCell)
+      ActiveCell.Offset(, 1) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 1))
+      ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
+      ActiveCell.Offset(, 3) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 3))
+      ActiveCell.Offset(1, 0).Select
+    Loop
   End Select
 
-  ' Doble espaciado
-  Selection.Replace What:=data(15), Replacement:=" ", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  Selection.Replace What:="  ", Replacement:=" ", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' guion al medio
-  Selection.Replace What:=data(18), Replacement:=" ", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' Slach
-  Selection.Replace What:=data(16), Replacement:=" ", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' Back Slach
-  Selection.Replace What:=data(17), Replacement:=" ", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' A con tilde
-  Selection.Replace What:=data(0), Replacement:="A", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' A con tilde invertida
-  Selection.Replace What:=data(1), Replacement:="A", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' E con tilde invertida
-  Selection.Replace What:=data(2), Replacement:="E", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' E con tilde
-  Selection.Replace What:=data(3), Replacement:="E", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' I con tilde invertida
-  Selection.Replace What:=data(4), Replacement:="I", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' I con tilde
-  Selection.Replace What:=data(5), Replacement:="I", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' O con tilde invertida
-  Selection.Replace What:=data(6), Replacement:="O", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' O con tilde
-  Selection.Replace What:=data(7), Replacement:="O", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' U con tilde invertida
-  Selection.Replace What:=data(8), Replacement:="U", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' U con tilde
-  Selection.Replace What:=data(9), Replacement:="U", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' Coma
-  Selection.Replace What:=data(10), Replacement:="", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' Punto
-  Selection.Replace What:=data(11), Replacement:="", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' Doble commilla
-  Selection.Replace What:=data(12), Replacement:="", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-  ' Espaciado
-  ' Selection.Replace What:=data(13), Replacement:=" ", LookAt:=xlPart, _
-  ' SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ' ReplaceFormat:=False
-  ' Salto de linea
-  Selection.Replace What:=data(14), Replacement:=" ", LookAt:=xlPart, _
-  SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
-  ReplaceFormat:=False
-
-  MsgBox "Correcciones realizadas, exitosamente!!",vbInformation,"Correcciones"
+  MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
 
 End Sub
+
+Function ReplaceNonAlphaNumeric(str As String) As String
+  Dim regEx As Object
+  Set regEx = CreateObject("vbscript.regexp")
+
+  ' Define la expresión regular para encontrar valores no alfanuméricos '
+  regEx.Pattern = "[^a-zA-Z" & Chr(209) & "]"
+  regEx.Global = True
+
+  ' Reemplaza cualquier valor no alfanumérico por un espacio '
+  ReplaceNonAlphaNumeric = Trim(regEx.Replace(str, " "))
+End Function
