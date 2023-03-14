@@ -159,10 +159,6 @@ Sub cleanData()
   '' LIMPIA LA HOJA USUARIOS ''
   book.Worksheets("USUARIO").Select
   Call ranges
-  Columns("S:S").Select
-  Selection.Delete Shift:=xlToLeft
-  Columns("U:U").Select
-  Selection.Delete Shift:=xlToLeft
 
   '' LIMPIA LA HOJA TRANS ''
   book.Worksheets("TRANS").Select
@@ -294,3 +290,128 @@ Function ReplaceNonAlphaNumeric(str As String) As String
   ' Reemplaza cualquier valor no alfanumérico por un espacio '
   ReplaceNonAlphaNumeric = Trim(regEx.Replace(str, " "))
 End Function
+
+Sub emtityClean()
+  '
+  ' esta pendiente por ser modificada y comprobar su funcionamiento
+  '
+
+  '
+  Worksheets("USUARIO").Select
+  ActiveSheet.Range("$A$1:$AA$50000").AutoFilter Field:=1, Criteria1:="PA"
+  Rows("2:2").Select
+  Range(Selection, Selection.End(xlDown)).Select
+  Selection.Delete Shift:=xlUp
+  Range("A1").Select
+  ActiveSheet.Range("$A$1:$AA$50000").AutoFilter Field:=1
+  Sheets("TRANS").Select
+  Columns("F:F").Select
+  Selection.Insert Shift:=xlToRight
+  Range("F2").Select
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC5,USUARIO!R2C15:R50000C15,1,FALSE)"
+  Range("F2").Select
+  Selection.Copy
+  Range("E2").Select
+  Selection.End(xlDown).Select
+  Selection.Offset(, 1).Select
+  Range(Selection, Selection.End(xlUp)).Select
+  Selection.PasteSpecial Paste:=xlPasteFormulas, Operation:=xlNone, _
+  SkipBlanks:=False, Transpose:=False
+  Application.CutCopyMode = False
+  Calculate
+  Selection.End(xlUp).Select
+  Selection.End(xlUp).Select
+  ActiveSheet.Range("$A$1:$R$50000").AutoFilter Field:=6, Criteria1:="#N/A"
+  Rows("2:2").Select
+  Range(Selection, Selection.End(xlDown)).Select
+  Selection.Delete Shift:=xlUp
+  Columns("F:F").Select
+  Selection.Delete Shift:=xlToLeft
+  ActiveSheet.Range("$A$1:$Q$50000").AutoFilter Field:=1, Criteria1:=Array( _
+  "050011805001", "110010653703", "110010653704", "660010278801", "110010653705"), _
+  Operator:=xlFilterValues
+  Rows("2:2").Select
+  Range(Selection, Selection.End(xlDown)).Select
+  Selection.Delete Shift:=xlUp
+  Range("A1").Select
+  ActiveSheet.Range("$A$1:$Q$50000").AutoFilter Field:=1
+  Range("A2").Select
+  Sheets("USUARIO").Select
+  Columns("P:P").Select
+  Selection.Insert Shift:=xlToRight
+  Range("P2").Select
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC15,TRANS!R2C5:R50000C5,1,FALSE)"
+  Range("P2").Select
+  Selection.Copy
+  Range("O2").Select
+  Selection.End(xlDown).Select
+  Selection.Offset(, 1).Select
+  Range(Selection, Selection.End(xlUp)).Select
+  Selection.PasteSpecial Paste:=xlPasteFormulas, Operation:=xlNone, _
+  SkipBlanks:=False, Transpose:=False
+  Application.CutCopyMode = False
+  Calculate
+  Selection.End(xlUp).Select
+  Selection.End(xlUp).Select
+  ActiveSheet.Range("$A$1:$AB$50000").AutoFilter Field:=16, Criteria1:="#N/A"
+  Rows("2:2").Select
+  Range(Selection, Selection.End(xlDown)).Select
+  Selection.Delete Shift:=xlUp
+  Columns("P:P").Select
+  Selection.Delete Shift:=xlToLeft
+  Range("P2").Select
+
+
+  Sheets("CONSULTA").Select
+  Columns("B:B").Select
+  Selection.Insert Shift:=xlToRight
+  Range("B2").Select
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,USUARIO!R2C15:R50000C15,1,FALSE)"
+  Range("B2").Select
+  Selection.Copy
+  Range("A2").Select
+  Selection.End(xlDown).Select
+  Selection.offset(,1).Select
+  Range(Selection, Selection.End(xlUp)).Select
+  Selection.PasteSpecial Paste:=xlPasteFormulas, Operation:=xlNone, _
+  SkipBlanks:=False, Transpose:=False
+  Application.CutCopyMode = False
+  Calculate
+  Selection.End(xlUp).Select
+  Selection.End(xlUp).Select
+  ActiveSheet.Range("$A$1:$R$50000").AutoFilter Field:=2, Criteria1:="#N/A"
+  Rows("2:2").Select
+  Range(Selection, Selection.End(xlDown)).Select
+  Selection.Delete Shift:=xlUp
+  Selection.End(xlUp).Select
+  Columns("B:B").Select
+  Selection.Delete Shift:=xlToLeft
+  Range("A2").Select
+
+  Sheets("PROCEDIMIENTOS").Select
+  Columns("B:B").Select
+  Selection.Insert Shift:=xlToRight
+  Range("B2").Select
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,USUARIO!R2C15:R50000C15,1,FALSE)"
+  Range("B2").Select
+  Selection.Copy
+  Range("A2").Select
+  Selection.End(xlDown).Select
+  Selection.offset(,1).Select
+  Range(Selection, Selection.End(xlUp)).Select
+  Selection.PasteSpecial Paste:=xlPasteFormulas, Operation:=xlNone, _
+  SkipBlanks:=False, Transpose:=False
+  Application.CutCopyMode = False
+  Calculate
+  Selection.End(xlUp).Select
+  Selection.End(xlUp).Select
+  ActiveSheet.Range("$A$1:$R$50000").AutoFilter Field:=2, Criteria1:="#N/A"
+  Rows("2:2").Select
+  Range(Selection, Selection.End(xlDown)).Select
+  Selection.Delete Shift:=xlUp
+  Selection.End(xlUp).Select
+  Columns("B:B").Select
+  Selection.Delete Shift:=xlToLeft
+  Range("A2").Select
+
+End Sub

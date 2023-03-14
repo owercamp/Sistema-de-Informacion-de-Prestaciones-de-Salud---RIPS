@@ -84,6 +84,9 @@ Sub QUITAR_GUIONES()
     Selection.Replace What:="903825", Replacement:="903895"
     Selection.Replace What:="902212", Replacement:="911016"
     Selection.Replace What:="901404", Replacement:="860205"
+    Selection.Replace What:="100008", Replacement:="993510"
+    Selection.Replace What:="100007", Replacement:="993503"
+    Selection.Replace What:="100014", Replacement:="993505"
 
 End Sub
 
