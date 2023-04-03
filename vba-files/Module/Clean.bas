@@ -280,15 +280,22 @@ Sub ClearCharter()
 End Sub
 
 Function ReplaceNonAlphaNumeric(str As String) As String
-  Dim regEx As Object
-  Set regEx = CreateObject("vbscript.regexp")
+  Dim regEx, regEx2 As Object
+  Dim Val As String
 
-  ' Define la expresión regular para encontrar valores no alfanuméricos '
+  Set regEx = CreateObject("vbscript.regexp")
+  Set regEx2 = CreateObject("vbscript.regexp")
+
+  regEx2.Pattern = Chr(209)
+  regEx2.Global = True
+  Val = Trim(regEx2.Replace(str, Chr(78)))
+
+  ' Define la expresion regular para encontrar valores no alfanumericos '
   regEx.Pattern = "[^a-zA-Z" & Chr(209) & "]"
   regEx.Global = True
 
-  ' Reemplaza cualquier valor no alfanumérico por un espacio '
-  ReplaceNonAlphaNumeric = Trim(regEx.Replace(str, " "))
+  ' Reemplaza cualquier valor no alfanumerico por un espacio '
+  ReplaceNonAlphaNumeric = Trim(regEx.Replace(Val, " "))
 End Function
 
 Sub emtityClean()
