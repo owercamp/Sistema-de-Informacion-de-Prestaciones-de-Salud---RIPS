@@ -260,22 +260,23 @@ Sub ClearCharter()
       ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
       ActiveCell.Offset(1, 0).Select
     Loop
-   Case 1
+   Case 1 , 2
     Cells.Find(What:="primerapellido", After:=ActiveCell, LookIn:= _
     xlFormulas, LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:= _
     xlNext, MatchCase:=False, SearchFormat:=False).Activate
-    ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 0
-    Selection.Offset(1, 0).Select
-    Do While Not IsEmpty(ActiveCell)
-      ActiveCell = ReplaceNonAlphaNumeric(ActiveCell)
-      ActiveCell.Offset(, 1) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 1))
-      ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
-      ActiveCell.Offset(, 3) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 3))
-      ActiveCell.Offset(1, 0).Select
-    Loop
-  End Select
+    If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 1 Then: ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 2
+      If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 2 Then: ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 0
+        Selection.Offset(1, 0).Select
+        Do While Not IsEmpty(ActiveCell)
+          ActiveCell = ReplaceNonAlphaNumeric(ActiveCell)
+          ActiveCell.Offset(, 1) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 1))
+          ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
+          ActiveCell.Offset(, 3) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 3))
+          ActiveCell.Offset(1, 0).Select
+        Loop
+      End Select
 
-  MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
+      MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
 
 End Sub
 
@@ -298,12 +299,27 @@ Function ReplaceNonAlphaNumeric(str As String) As String
   ReplaceNonAlphaNumeric = Trim(regEx.Replace(Val, " "))
 End Function
 
-Sub emtityClean()
-  '
-  ' esta pendiente por ser modificada y comprobar su funcionamiento
-  '
+Sub entityClean()
 
-  '
+  Dim dir_separate() As String, list_sedes() As String, obj As String
+  Dim rng As Range
+  Dim counter As Integer
+  counter = 1
+
+  obj = ThisWorkbook.BuiltinDocumentProperties.Parent.Path
+
+  dir_separate = VBA.Split(obj, "\")
+
+  Set rng = ThisWorkbook.Worksheets("REFERENCIAS").Range("I11", ThisWorkbook.Worksheets("REFERENCIAS").Range("I11").End(xlDown))
+  ReDim list_sedes(1 To rng.Count - 1) As String
+
+  For Each item In rng
+    If Trim(UCase(item)) <> Trim(UCase(dir_separate(UBound(dir_separate)))) Then
+      list_sedes(counter) = CStr(item.Offset(, 1).value)
+      counter = counter + 1
+    End If
+  Next item
+
   Worksheets("USUARIO").Select
   ActiveSheet.Range("$A$1:$AA$50000").AutoFilter Field:=1, Criteria1:="PA"
   Rows("2:2").Select
@@ -334,8 +350,7 @@ Sub emtityClean()
   Selection.Delete Shift:=xlUp
   Columns("F:F").Select
   Selection.Delete Shift:=xlToLeft
-  ActiveSheet.Range("$A$1:$Q$50000").AutoFilter Field:=1, Criteria1:=Array( _
-  "050011805001", "110010653703", "110010653704", "660010278801", "110010653705"), _
+  ActiveSheet.Range("$A$1:$Q$50000").AutoFilter Field:=1, Criteria1:=Array(list_sedes), _
   Operator:=xlFilterValues
   Rows("2:2").Select
   Range(Selection, Selection.End(xlDown)).Select

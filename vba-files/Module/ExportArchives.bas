@@ -241,9 +241,9 @@ End Sub
 
 Sub ELIMINAR_CELDAS_SOBRANTES()
 
-  Range("A1").Select
+  Range("B1").Select
   Selection.End(xlDown).Select
-  ActiveCell.Offset(1, 0).Activate
+  ActiveCell.Offset(1, -1).Activate
   Selection.EntireRow.Select
   Range(Selection, Selection.End(xlDown)).Select
   Selection.Delete Shift:=xlUp

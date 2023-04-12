@@ -93,9 +93,9 @@ Sub iMedical()
                   '/* Proceso para la hoja Trans '*/
                   ThisWorkbook.Worksheets("TRANS").Select
                   nameArchive = VBA.Split(itemArchive.Name,".")
-                  Range("A1").Select
+                  Range("B1").Select
                   Selection.End(xlDown).Select
-                  ActiveCell.Offset(1, 0).Select
+                  ActiveCell.Offset(1, -1).Select
                   destiny = ActiveCell.Address
                   With ActiveSheet.QueryTables.Add(Connection:= _
                     route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
@@ -108,7 +108,7 @@ Sub iMedical()
                     .TextFileTrailingMinusNumbers = True
                     .Refresh BackgroundQuery:=False
                   End With
-                  Do While Not IsEmpty(ActiveCell)
+                  Do While Not IsEmpty(ActiveCell.Offset(,1))
                     If item = "MEDELLIN" Then: ActiveCell.Offset(, 8) = "EAS016"
                       If item = "VILLAVICENCIO" Then: ActiveCell.Offset(, 8) = "50000"
                         If item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" or item = "BOGOTA" Then: ActiveCell.Offset(, 8) = "SDS001"
@@ -117,7 +117,7 @@ Sub iMedical()
                           Loop
                           Cells.Select
                           Cells.EntireColumn.AutoFit
-                          Range("A1").Select
+                          Range("B1").Select
                           Selection.End(xlDown).Select
                           ThisWorkbook.Connections(nameArchive(0)).Delete
                         ElseIf (VBA.InStr(itemArchive.Name, "AC") = 1) Then
