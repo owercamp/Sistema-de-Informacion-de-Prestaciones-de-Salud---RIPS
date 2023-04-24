@@ -1,5 +1,7 @@
 Attribute VB_Name = "Clean"
-Sub Macro2()
+Option Explicit
+
+Public Sub Macro2()
   Attribute Macro2.VB_ProcData.VB_Invoke_Func = " \n14"
   Range("C2").Select
   ActiveCell.FormulaR1C1 = "=MID(MID(RC[-1],SEARCH(R1C3,RC[-1]),25),22,4)"
@@ -22,7 +24,7 @@ Sub Macro2()
   Application.CutCopyMode = False
 End Sub
 
-Sub LimpiezaDiag()
+Public Sub LimpiezaDiag()
 
   Worksheets("CONSULTA").Select
 
@@ -34,92 +36,112 @@ Sub LimpiezaDiag()
   '' LIMPIEZA DE LAS CELDAS J, K, L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA I ''
   Do While Not IsEmpty(ActiveCell)
     On Error GoTo Error2042
-    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 1) = Empty
-      If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 2) = Empty
-        If Trim(ActiveCell.Offset(0, 3)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 3) = Empty
-          If Trim(ActiveCell.Offset(0, 4)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 4) = Empty
-            ActiveCell.Offset(1, 0).Select
-            DoEvents
-          Loop
-          Range("J2").Select
+    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 1) = Empty
+    End If
+    If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 2) = Empty
+    End If
+    If Trim(ActiveCell.Offset(0, 3)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 3) = Empty
+    End If
+    If Trim(ActiveCell.Offset(0, 4)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 4) = Empty
+    End If
+    ActiveCell.Offset(1, 0).Select
+    DoEvents
+  Loop
+  Range("J2").Select
 
-          '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
-          Do While Not IsEmpty(ActiveCell)
-            If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
-              ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
-            ElseIf (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) = Empty Or ActiveCell.Offset(0, 2) = "") And (ActiveCell.Offset(0, 3) <> Empty Or ActiveCell.Offset(0, 3) <> "") Then
-              ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 3)
-            End If
-            ActiveCell.Offset(1, 0).Select
-            DoEvents
-          Loop
+  '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
+  Do While Not IsEmpty(ActiveCell)
+    If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
+      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
+    ElseIf (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) = Empty Or ActiveCell.Offset(0, 2) = "") And (ActiveCell.Offset(0, 3) <> Empty Or ActiveCell.Offset(0, 3) <> "") Then
+      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 3)
+    End If
+    ActiveCell.Offset(1, 0).Select
+    DoEvents
+  Loop
 
-          Range("K2").Select
+  Range("K2").Select
 
-          '' LIMPIEZA DE LAS CELDAS K, L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA J ''
-          Do While Not IsEmpty(ActiveCell.Offset(0, -1))
-            If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 1) = Empty
-              If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 2) = Empty
-                If Trim(ActiveCell.Offset(0, 3)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 3) = Empty
-                  ActiveCell.Offset(1, 0).Select
-                  DoEvents
-                Loop
+  '' LIMPIEZA DE LAS CELDAS K, L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA J ''
+  Do While Not IsEmpty(ActiveCell.Offset(0, -1))
+    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 1) = Empty
+    End If
+    If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 2) = Empty
+    End If
+    If Trim(ActiveCell.Offset(0, 3)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 3) = Empty
+    End If
+    ActiveCell.Offset(1, 0).Select
+    DoEvents
+  Loop
 
-                Range("K2").Select
+  Range("K2").Select
 
-                '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
-                Do While Not IsEmpty(ActiveCell.Offset(0, -1))
-                  If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
-                    ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
-                  ElseIf (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) = Empty Or ActiveCell.Offset(0, 2) = "") And (ActiveCell.Offset(0, 3) <> Empty Or ActiveCell.Offset(0, 3) <> "") Then
-                    ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 3)
-                  End If
-                  ActiveCell.Offset(1, 0).Select
-                  DoEvents
-                Loop
+  '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
+  Do While Not IsEmpty(ActiveCell.Offset(0, -1))
+    If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
+      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
+    ElseIf (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) = Empty Or ActiveCell.Offset(0, 2) = "") And (ActiveCell.Offset(0, 3) <> Empty Or ActiveCell.Offset(0, 3) <> "") Then
+      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 3)
+    End If
+    ActiveCell.Offset(1, 0).Select
+    DoEvents
+  Loop
 
-                Range("L2").Select
+  Range("L2").Select
 
-                '' LIMPIEZA DE LAS CELDAS L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA K ''
-                Do While Not IsEmpty(ActiveCell.Offset(0, -2))
-                  If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 1) = Empty
-                    If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 2) = Empty
-                      ActiveCell.Offset(1, 0).Select
-                      DoEvents
-                    Loop
+  '' LIMPIEZA DE LAS CELDAS L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA K ''
+  Do While Not IsEmpty(ActiveCell.Offset(0, -2))
+    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 1) = Empty
+    End If
+    If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 2) = Empty
+    End If
+    ActiveCell.Offset(1, 0).Select
+    DoEvents
+  Loop
 
-                    Range("L2").Select
+  Range("L2").Select
 
-                    '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
-                    Do While Not IsEmpty(ActiveCell.Offset(0, -2))
-                      If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
-                        ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
-                      End If
-                      ActiveCell.Offset(1, 0).Select
-                      DoEvents
-                    Loop
+  '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
+  Do While Not IsEmpty(ActiveCell.Offset(0, -2))
+    If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
+      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
+    End If
+    ActiveCell.Offset(1, 0).Select
+    DoEvents
+  Loop
 
-                    Range("M2").Select
+  Range("M2").Select
 
-                    '' LIMPIEZA DE LAS CELDAS M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA L ''
-                    Do While Not IsEmpty(ActiveCell.Offset(0, -3))
-                      If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then: ActiveCell.Offset(0, 1) = Empty
-                        ActiveCell.Offset(1, 0).Select
-                        DoEvents
-                      Loop
+  '' LIMPIEZA DE LAS CELDAS M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA L ''
+  Do While Not IsEmpty(ActiveCell.Offset(0, -3))
+    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
+      ActiveCell.Offset(0, 1) = Empty
+    End If
+    ActiveCell.Offset(1, 0).Select
+    DoEvents
+  Loop
 
-                      Range("M2").Select
+  Range("M2").Select
 
-                      Application.ScreenUpdating = True
-                      Application.Calculation = xlCalculationAutomatic
-                      Application.EnableEvents = True
+  Application.ScreenUpdating = True
+  Application.Calculation = xlCalculationAutomatic
+  Application.EnableEvents = True
 
  Error2042:
-                      Resume Next
+  Resume Next
 
 End Sub
 
-Sub finalidad()
+Public Sub finalidad()
 
   Dim val As String
 
@@ -145,7 +167,7 @@ Sub finalidad()
 
 End Sub
 
-Sub cleanData()
+Public Sub cleanData()
 
   Dim book As Workbook
 
@@ -186,7 +208,7 @@ Sub cleanData()
 
 End Sub
 
-Sub ranges()
+Public Sub ranges()
 
   Dim ranges As Range
 
@@ -198,9 +220,9 @@ Sub ranges()
 
 End Sub
 
-Sub duplicate()
+Public Sub duplicate()
 
-  Dim val
+  Dim val As String
 
   Application.ScreenUpdating = False
 
@@ -229,10 +251,10 @@ Sub duplicate()
 
 End Sub
 
-Sub removeRegex()
+Public Sub removeRegex()
   Attribute cargos.VB_ProcData.VB_Invoke_Func = "k\n14"
 
-  Dim initial, regex As Variant
+  Dim initial As Variant, regex As Variant
 
   regex = Array(Chr(46))
 
@@ -245,7 +267,7 @@ Sub removeRegex()
 
 End Sub
 
-Sub ClearCharter()
+Public Sub ClearCharter()
 
   ActiveWorkbook.Worksheets("USUARIO").Select
 
@@ -264,24 +286,28 @@ Sub ClearCharter()
     Cells.Find(What:="primerapellido", After:=ActiveCell, LookIn:= _
     xlFormulas, LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:= _
     xlNext, MatchCase:=False, SearchFormat:=False).Activate
-    If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 1 Then: ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 2
-      If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 2 Then: ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 0
-        Selection.Offset(1, 0).Select
-        Do While Not IsEmpty(ActiveCell)
-          ActiveCell = ReplaceNonAlphaNumeric(ActiveCell)
-          ActiveCell.Offset(, 1) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 1))
-          ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
-          ActiveCell.Offset(, 3) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 3))
-          ActiveCell.Offset(1, 0).Select
-        Loop
-      End Select
+    If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 1 Then
+      ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 2
+    End If
+    If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 2 Then
+      ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 0
+    End If
+    Selection.Offset(1, 0).Select
+    Do While Not IsEmpty(ActiveCell)
+      ActiveCell = ReplaceNonAlphaNumeric(ActiveCell)
+      ActiveCell.Offset(, 1) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 1))
+      ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
+      ActiveCell.Offset(, 3) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 3))
+      ActiveCell.Offset(1, 0).Select
+    Loop
+  End Select
 
-      MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
+  MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
 
 End Sub
 
-Function ReplaceNonAlphaNumeric(str As String) As String
-  Dim regEx, regEx2 As Object
+Public Function ReplaceNonAlphaNumeric(str As String) As String
+  Dim regEx As Object, regEx2 As Object
   Dim Val As String
 
   Set regEx = CreateObject("vbscript.regexp")
@@ -299,7 +325,7 @@ Function ReplaceNonAlphaNumeric(str As String) As String
   ReplaceNonAlphaNumeric = Trim(regEx.Replace(Val, " "))
 End Function
 
-Sub entityClean()
+Public Sub entityClean()
 
   Dim dir_separate() As String, list_sedes() As String, obj As String
   Dim rng As Range

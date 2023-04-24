@@ -1,5 +1,7 @@
 Attribute VB_Name = "B_Trans"
-Sub DEPURAR_TRANS()
+Option Explicit
+
+Public Sub DEPURAR_TRANS()
 
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
@@ -19,7 +21,7 @@ Sub DEPURAR_TRANS()
 
 End Sub
 
-Sub COMPARAR_CANTIDAD()
+Public Sub COMPARAR_CANTIDAD()
 
   Sheets("TRANS").Select
   Columns("F:F").Select
@@ -47,7 +49,7 @@ Sub COMPARAR_CANTIDAD()
 
 End Sub
 
-Sub FECHA_TRANS()
+Public Sub FECHA_TRANS()
 
   Sheets("TRANS").Select
 
@@ -77,18 +79,22 @@ Sub FECHA_TRANS()
   Application.CutCopyMode = False
 End Sub
 
-Function EQUALIZE(ByVal searchValue As String, ByVal rangeOne As Range, ByVal positionOne As Integer, ByVal rangeTwo As Range, ByVal positionTwo As Integer)
+Public Function EQUALIZE(ByVal searchValue As String, ByVal rangeOne As Range, ByVal positionOne As Integer, ByVal rangeTwo As Range, ByVal positionTwo As Integer)
 
-  Dim accumulator As LongLong
+  Dim accumulator As LongPtr
 
   For Each item In rangeOne
-    If Trim(UCase(item)) = Trim(UCase(searchValue)) Then: accumulator = accumulator + CLngLng(item.Offset(, positionOne))
-    Next item
+    If Trim(UCase(item)) = Trim(UCase(searchValue)) Then
+      accumulator = accumulator + CLngPtr(item.Offset(, positionOne))
+    End If
+  Next item
 
-    For Each item In rangeTwo
-      If Trim(UCase(item)) = Trim(UCase(searchValue)) Then: accumulator = accumulator + CLngLng(item.Offset(, positionTwo))
-      Next item
+  For Each item In rangeTwo
+    If Trim(UCase(item)) = Trim(UCase(searchValue)) Then
+      accumulator = accumulator + CLngPtr(item.Offset(, positionTwo))
+    End If
+  Next item
 
-      EQUALIZE = accumulator
+  EQUALIZE = accumulator
 
 End Function

@@ -1,8 +1,9 @@
 Attribute VB_Name = "ExportArchives"
+Option Explicit
 
 Public DIRECTORY As String
 
-Sub Usuario()
+Public Sub Usuario()
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -24,7 +25,7 @@ Sub Usuario()
 
 End Sub
 
-Sub Trans()
+Public Sub Trans()
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -44,7 +45,7 @@ Sub Trans()
 
 End Sub
 
-Sub Consulta()
+Public Sub Consulta()
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -64,7 +65,7 @@ Sub Consulta()
 
 End Sub
 
-Sub PROCEDIMIENTOS()
+Public Sub PROCEDIMIENTOS()
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -84,7 +85,7 @@ Sub PROCEDIMIENTOS()
 
 End Sub
 
-Sub CONTROL()
+Public Sub CONTROL()
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -104,8 +105,8 @@ Sub CONTROL()
 
 End Sub
 
-Sub Zip_All_Files_in_Folder()
-  Dim FileNameZip, FolderName
+Public Sub Zip_All_Files_in_Folder()
+  Dim FileNameZip As Variant, FolderName As Variant
   Dim strDate As String, DefPath As String
   Dim oApp As Object
 
@@ -139,10 +140,10 @@ Sub Zip_All_Files_in_Folder()
 End Sub
 
 
-Sub Zip_File_Or_Files()
+Public Sub Zip_File_Or_Files()
   Dim strDate As String, DefPath As String, sFName As String
   Dim oApp As Object, iCtr As Long, I As Integer
-  Dim FName, vArr, FileNameZip
+  Dim FName As Variant, vArr As Variant, FileNameZip As Variant
 
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
 
@@ -187,7 +188,7 @@ Sub Zip_File_Or_Files()
   End If
 End Sub
 
-Sub NewZip(sPath)
+Public Sub NewZip(sPath)
   'Create empty Zip File
   'Changed by keepITcool Dec-12-2005
   If Len(Dir(sPath)) > 0 Then Kill sPath
@@ -197,21 +198,21 @@ Sub NewZip(sPath)
 End Sub
 
 
-Function bIsBookOpen(ByRef szBookName As String) As Boolean
+Public Function bIsBookOpen(ByRef szBookName As String) As Boolean
   ' Rob Bovey
   On Error Resume Next
   bIsBookOpen = Not (Application.Workbooks(szBookName) Is Nothing)
 End Function
 
 
-Function Split97(sStr As Variant, sdelim As String) As Variant
+Public Function Split97(sStr As Variant, sdelim As String) As Variant
   'Tom Ogilvy
   Split97 = Evaluate("{""" & _
   Application.Substitute(sStr, sdelim, """,""") & """}")
 End Function
 
 
-Sub MACRO1()
+Public Sub MACRO1()
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -239,7 +240,7 @@ Sub MACRO1()
   Application.EnableEvents = True     'activar alertas
 End Sub
 
-Sub ELIMINAR_CELDAS_SOBRANTES()
+Public Sub ELIMINAR_CELDAS_SOBRANTES()
 
   Range("B1").Select
   Selection.End(xlDown).Select
@@ -251,7 +252,7 @@ Sub ELIMINAR_CELDAS_SOBRANTES()
 End Sub
 
 
-Sub COMPLETAR_TOTALES()
+Public Sub COMPLETAR_TOTALES()
 
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
@@ -336,7 +337,7 @@ Sub COMPLETAR_TOTALES()
 
 End Sub
 
-Sub eliminar_filas_restante()
+Public Sub eliminar_filas_restante()
 
   Sheets("REFERENCIAS").Visible = False
   Sheets("DIAG").Visible = False
@@ -366,11 +367,11 @@ Sub eliminar_filas_restante()
 
 End Sub
 
-Sub importInfo()
+Public Sub importInfo()
 
-  Dim dirs, route As String
+  Dim dirs As String, route As String
   Dim monthNow As Variant
-  Dim Usuario, Trans, Consulta, Procedimiento, Diagnostico, Reporte As Workbook
+  Dim Usuario as Workbook, Trans as Workbook, Consulta as Workbook, Procedimiento as Workbook, Diagnostico as Workbook, Reporte As Workbook
   Dim fso As Object
   Set fso = CreateObject("Scripting.FileSystemObject")
 
@@ -488,42 +489,44 @@ Sub importInfo()
   End Select
 
   On Error GoTo Exists
-  If Not fso.folderExists(route & "\" & CStr(yearNow)) Then: fso.CreateFolder (route & "\" & CStr(yearNow))
-    If Not fso.folderExists(route & "\" & CStr(yearNow) & "\" & UCase(nameFolder)) Then
-      fso.CreateFolder (route & "\" & CStr(yearNow) & "\" & UCase(nameFolder))
-      fso.CreateFolder (route & "\" & CStr(yearNow) & "\" & UCase(nameFolder) & "\IMEDICAL")
-      fso.CreateFolder (route & "\" & CStr(yearNow) & "\01" & UCase(nameFolder))
-      ActiveWorkbook.SaveCopyAs Filename:=route & "\" & CStr(yearNow) & "\" & UCase(nameFolder) & "\" & "Reporte_" & CStr(yearNow) & "_" & UCase(nameFolder) & "-1.1.xlsb"
-    ElseIf fso.FolderExists(route & "\" & CStr(yearNow) & "\" & Ucase(nameFolder)) Then
-      ActiveWorkbook.SaveCopyAs Filename:=route & "\" & CStr(yearNow) & "\" & Ucase(nameFolder) & "\" & "Reporte_" & CStr(yearNow) & "_" & Ucase(nameFolder) & "-1.1.xlsb"
-    End If
+  If Not fso.folderExists(route & "\" & CStr(yearNow)) Then
+    fso.CreateFolder (route & "\" & CStr(yearNow))
+  End If
+  If Not fso.folderExists(route & "\" & CStr(yearNow) & "\" & UCase(nameFolder)) Then
+    fso.CreateFolder (route & "\" & CStr(yearNow) & "\" & UCase(nameFolder))
+    fso.CreateFolder (route & "\" & CStr(yearNow) & "\" & UCase(nameFolder) & "\IMEDICAL")
+    fso.CreateFolder (route & "\" & CStr(yearNow) & "\01" & UCase(nameFolder))
+    ActiveWorkbook.SaveCopyAs Filename:=route & "\" & CStr(yearNow) & "\" & UCase(nameFolder) & "\" & "Reporte_" & CStr(yearNow) & "_" & UCase(nameFolder) & "-1.1.xlsb"
+  ElseIf fso.FolderExists(route & "\" & CStr(yearNow) & "\" & Ucase(nameFolder)) Then
+    ActiveWorkbook.SaveCopyAs Filename:=route & "\" & CStr(yearNow) & "\" & Ucase(nameFolder) & "\" & "Reporte_" & CStr(yearNow) & "_" & Ucase(nameFolder) & "-1.1.xlsb"
+  End If
 
-    MsgBox "Importacion de datos descargados completa", vbOKOnly + vbInformation, "informacion"
+  MsgBox "Importacion de datos descargados completa", vbOKOnly + vbInformation, "informacion"
 
-    Exit Sub
+  Exit Sub
 
  Exists:
-    Resume Next
+  Resume Next
 
  Usuario:
-    Set Usuario = Workbooks.Open(dirs & "\usuarios.csv")
-    Resume Next
+  Set Usuario = Workbooks.Open(dirs & "\usuarios.csv")
+  Resume Next
 
  Consulta:
-    Set Consulta = Workbooks.Open(dirs & "\consultas.csv")
-    Resume Next
+  Set Consulta = Workbooks.Open(dirs & "\consultas.csv")
+  Resume Next
 
  Procedimiento:
-    Set Procedimiento = Workbooks.Open(dirs & "\procedimientos.csv")
-    Resume Next
+  Set Procedimiento = Workbooks.Open(dirs & "\procedimientos.csv")
+  Resume Next
 
  Diagnostico:
-    Set Diagnostico = Workbooks.Open(dirs & "\diagnosticos.csv")
-    Resume Next
+  Set Diagnostico = Workbooks.Open(dirs & "\diagnosticos.csv")
+  Resume Next
 
 End Sub
 
-Sub dirsPisisSuperSalud()
+Public Sub dirsPisisSuperSalud()
 
   Dim route As String
   Dim entity As Range
@@ -555,7 +558,7 @@ Sub dirsPisisSuperSalud()
 
 End Sub
 
-Sub dirsSedes()
+Public Sub dirsSedes()
 
   Dim route As String
   Dim sedes As Range

@@ -1,5 +1,7 @@
 Attribute VB_Name = "E_Diagnosticos"
-Sub depurar_diagnosticos()
+Option Explicit
+
+Public Sub depurar_diagnosticos()
 
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual

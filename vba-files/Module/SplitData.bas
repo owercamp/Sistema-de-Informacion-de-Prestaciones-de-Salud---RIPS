@@ -1,7 +1,7 @@
 Attribute VB_Name = "SplitData"
 Option Explicit
 
-Sub splitUsers()
+Public Sub splitUsers()
   Attribute splitUsers.VB_ProcData.VB_Invoke_Func = " \n14"
 
   Range("A2").Select
@@ -15,7 +15,7 @@ Sub splitUsers()
   (20, 1), Array(21, 1), Array(22, 1), Array(23, 1)), TrailingMinusNumbers:=True
 End Sub
 
-Sub splitTrans()
+Public Sub splitTrans()
   Attribute splitTrans.VB_ProcData.VB_Invoke_Func = " \n14"
 
   Range("A2").Select
@@ -29,7 +29,7 @@ Sub splitTrans()
   True
 End Sub
 
-Sub splitQuery()
+Public Sub splitQuery()
   Attribute splitQuery.VB_ProcData.VB_Invoke_Func = " \n14"
 
   Range("A2").Select
@@ -43,7 +43,7 @@ Sub splitQuery()
   True
 End Sub
 
-Sub splitProcedure()
+Public Sub splitProcedure()
   Attribute splitProcedure.VB_ProcData.VB_Invoke_Func = " \n14"
 
   Range("A2").Select

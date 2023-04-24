@@ -1,5 +1,7 @@
 Attribute VB_Name = "A_Usuario"
-Sub DEPURAR_USUARIO()
+Option Explicit
+
+Public Sub DEPURAR_USUARIO()
 
   Sheets("USUARIO").Select
 
@@ -131,7 +133,7 @@ Sub DEPURAR_USUARIO()
 
 End Sub
 
-Sub USUARIO_PARTE2()
+Public Sub USUARIO_PARTE2()
 
   'CEDULA_REC
 

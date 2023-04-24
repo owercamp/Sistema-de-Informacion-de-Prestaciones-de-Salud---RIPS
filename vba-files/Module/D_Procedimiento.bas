@@ -1,5 +1,7 @@
 Attribute VB_Name = "D_Procedimiento"
-Sub DEPURAR_PROCEDIMIENTOS()
+Option Explicit
+
+Public Sub DEPURAR_PROCEDIMIENTOS()
 
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
@@ -38,7 +40,7 @@ Sub DEPURAR_PROCEDIMIENTOS()
 
 End Sub
 
-Sub COMPARAR_PROCEDIMIENTOS()
+Public Sub COMPARAR_PROCEDIMIENTOS()
 
   Sheets("PROCEDIMIENTOS").Select
   Columns("B:B").Select
@@ -66,7 +68,7 @@ Sub COMPARAR_PROCEDIMIENTOS()
 
 End Sub
 
-Sub QUITAR_GUIONES()
+Public Sub QUITAR_GUIONES()
 
   Columns("G:G").Select
   Selection.Replace What:="-01", Replacement:=""
@@ -90,7 +92,7 @@ Sub QUITAR_GUIONES()
 
 End Sub
 
-Sub FECHA_TEXTO()
+Public Sub FECHA_TEXTO()
 
   Columns("E:E").Select
   Selection.NumberFormat = "@"
@@ -115,7 +117,7 @@ Sub FECHA_TEXTO()
 
 End Sub
 
-Sub CAMBIAR_ID_PROCEDIMIENTOS()
+Public Sub CAMBIAR_ID_PROCEDIMIENTOS()
 
   Range("D2").Select
   ActiveCell.FormulaR1C1 = _
@@ -132,7 +134,7 @@ Sub CAMBIAR_ID_PROCEDIMIENTOS()
 
 End Sub
 
-Sub AGREGAR_VALOR_PROCEDIMIENTO()
+Public Sub AGREGAR_VALOR_PROCEDIMIENTO()
 
   Range("O1").Select
 

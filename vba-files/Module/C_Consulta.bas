@@ -1,5 +1,7 @@
 Attribute VB_Name = "C_Consulta"
-Sub DEPURAR_CONSULTA()
+Option Explicit
+
+Public Sub DEPURAR_CONSULTA()
 
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
@@ -17,7 +19,7 @@ Sub DEPURAR_CONSULTA()
 
 End Sub
 
-Sub COMPARAR_CONSULTA()
+Public Sub COMPARAR_CONSULTA()
 
   Sheets("CONSULTA").Select
   Columns("B:B").Select
@@ -45,7 +47,7 @@ Sub COMPARAR_CONSULTA()
 
 End Sub
 
-Sub FECHA_CONSULTA()
+Public Sub FECHA_CONSULTA()
 
   Range("E2").Select
   Range(Selection,Selection.End(xlDown)).Select
@@ -53,7 +55,7 @@ Sub FECHA_CONSULTA()
 
 End Sub
 
-Sub FINALIDAD_CAUSA()
+Public Sub FINALIDAD_CAUSA()
 
   Range("H2").Select
   ActiveCell.Offset(, 1) = 15
@@ -99,7 +101,7 @@ Sub FINALIDAD_CAUSA()
 
 End Sub
 
-Sub DEPURAR_CONSULTA2()
+Public Sub DEPURAR_CONSULTA2()
 
   Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
@@ -127,7 +129,7 @@ Sub DEPURAR_CONSULTA2()
 
 End Sub
 
-Sub TRAER_DIAG()
+Public Sub TRAER_DIAG()
 
   Sheets("CONSULTA").Select
   ActiveWorkbook.Worksheets("CONSULTA").AutoFilter.Sort.SortFields.Clear
@@ -169,7 +171,7 @@ Sub TRAER_DIAG()
 
 End Sub
 
-Sub AGREGAR_Z100()
+Public Sub AGREGAR_Z100()
 
   ActiveSheet.Range("$A$1:$Q$500000").AutoFilter Field:=10, Criteria1:="#N/D", Operator:=xlOr, Criteria2:="="
 
@@ -236,7 +238,7 @@ Sub AGREGAR_Z100()
     Selection.End(xlUp).Select
 End Sub
 
-Sub REEMPLAZAR_CODIGOS()
+Public Sub REEMPLAZAR_CODIGOS()
 
   Columns("J:N").Select
   Selection.Replace What:="H547", Replacement:="H526"
@@ -250,7 +252,7 @@ Sub REEMPLAZAR_CODIGOS()
 
 End Sub
 
-Sub CONTAR_REPETIDOS()
+Public Sub CONTAR_REPETIDOS()
 
   Columns("O:S").Select
   Selection.Insert Shift:=xlToRight
@@ -271,7 +273,7 @@ Sub CONTAR_REPETIDOS()
 
 End Sub
 
-Sub CAMBIAR_ID_CONSULTA()
+Public Sub CAMBIAR_ID_CONSULTA()
 
   Range("D2").Select
   ActiveCell.FormulaR1C1 = _
