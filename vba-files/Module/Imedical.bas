@@ -15,7 +15,7 @@ Public Sub iMedical()
   Application.EnableEvents = False
 
   ' sedes '
-  headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL","BOGOTA")
+  headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL","BOGOTA","IBAGUE")
   yearNow = year(Date)
 
   ' seleccion del mes '
@@ -78,15 +78,18 @@ Public Sub iMedical()
             .Refresh BackgroundQuery:=False
           End With
           Do While Not IsEmpty(ActiveCell)
-            If item = "MEDELLIN" Then
-              ActiveCell.Offset(, 2) = "EAS016"
-            ElseIf  item = "VILLAVICENCIO" Then
-              ActiveCell.Offset(, 2) = "50000"
-            ElseIf item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" or item = "BOGOTA" Then
-              ActiveCell.Offset(, 2) = "SDS001"
-            ElseIf item = "PEREIRA" Then
-              ActiveCell.Offset(, 2) = "66001"
-            End If
+            Select Case Trim(item)
+             Case "MEDELLIN"
+              ActiveCell.offset(,2) = "EAS016"
+             Case "VILLAVICENCIO"
+              ActiveCell.offset(,2) = "50000"
+             Case "POLO II","POLO I","CHICO","ZONA INDUSTRIAL","BOGOTA"
+              ActiveCell.offset(,2) = "SDS001"
+             Case "PEREIRA"
+              ActiveCell.offset(,2) = "66000"
+             Case "IBAGUE"
+              ActiveCell.offset(,2) = "73000"
+            End Select
             ActiveCell.Offset(1, 0).Select
           Loop
           Cells.Select
@@ -114,15 +117,18 @@ Public Sub iMedical()
             .Refresh BackgroundQuery:=False
           End With
           Do While Not IsEmpty(ActiveCell.Offset(,1))
-            If item = "MEDELLIN" Then
-              ActiveCell.Offset(, 8) = "EAS016"
-            ElseIf item = "VILLAVICENCIO" Then
-              ActiveCell.Offset(, 8) = "50000"
-            ElseIf item = "POLO II" Or item = "POLO I" Or item = "CHICO" Or item = "ZONA INDUSTRIAL" or item = "BOGOTA" Then
-              ActiveCell.Offset(, 8) = "SDS001"
-            ElseIf item = "PEREIRA" Then
-              ActiveCell.Offset(, 8) = "66001"
-            End If
+            Select Case Trim(item)
+             Case "MEDELLIN"
+              ActiveCell.offset(,8) = "EAS016"
+             Case "VILLAVICENCIO"
+              ActiveCell.offset(,8) = "50000"
+             Case "POLO II","POLO I","CHICO","ZONA INDUSTRIAL","BOGOTA"
+              ActiveCell.offset(,8) = "SDS001"
+             Case "PEREIRA"
+              ActiveCell.offset(,8) = "66000"
+             Case "IBAGUE"
+              ActiveCell.offset(,8) = "73000"
+            End Select
             ActiveCell.Offset(1, 0).Select
           Loop
           Cells.Select

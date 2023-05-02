@@ -131,6 +131,8 @@ End Sub
 
 Public Sub TRAER_DIAG()
 
+  Dim origin As Variant
+
   Sheets("CONSULTA").Select
   ActiveWorkbook.Worksheets("CONSULTA").AutoFilter.Sort.SortFields.Clear
   ActiveWorkbook.Worksheets("CONSULTA").AutoFilter.Sort.SortFields.Add Key:= _

@@ -1,9 +1,11 @@
 Attribute VB_Name = "ExportArchives"
 Option Explicit
 
-Public DIRECTORY As String
+Public f As Object, DIRECTORY As String
 
 Public Sub Usuario()
+
+  Dim Usuarios As String
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -27,6 +29,8 @@ End Sub
 
 Public Sub Trans()
 
+  dim Tran As String
+
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
   Application.DisplayAlerts = False
@@ -46,6 +50,8 @@ Public Sub Trans()
 End Sub
 
 Public Sub Consulta()
+
+  dim consultas As String
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -67,6 +73,8 @@ End Sub
 
 Public Sub PROCEDIMIENTOS()
 
+  dim Procedimiento as String
+
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
   Application.DisplayAlerts = False
@@ -86,6 +94,8 @@ Public Sub PROCEDIMIENTOS()
 End Sub
 
 Public Sub CONTROL()
+
+  dim controles As String
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -213,6 +223,8 @@ End Function
 
 
 Public Sub MACRO1()
+
+  dim libroMatriz As String
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
@@ -369,8 +381,8 @@ End Sub
 
 Public Sub importInfo()
 
-  Dim dirs As String, route As String
-  Dim monthNow As Variant
+  Dim dirs As String, route As String, nameFolder As String
+  Dim monthNow As Variant, yearNow As Variant
   Dim Usuario as Workbook, Trans as Workbook, Consulta as Workbook, Procedimiento as Workbook, Diagnostico as Workbook, Reporte As Workbook
   Dim fso As Object
   Set fso = CreateObject("Scripting.FileSystemObject")
@@ -379,7 +391,7 @@ Public Sub importInfo()
   Application.Calculation = xlCalculationManual
   Application.EnableEvents = False
 
-  dirs = ThisWorkbook.Worksheets("Sedes").Range("$G$4").value
+  dirs = ThisWorkbook.Worksheets("Sedes").Range("$G$3").value
 
   Set Reporte = ThisWorkbook
 
@@ -456,7 +468,7 @@ Public Sub importInfo()
 
   Reporte.Worksheets("USUARIO").Select
 
-  route = ThisWorkbook.Worksheets("Sedes").Range("$G$3").value
+  route = ThisWorkbook.Worksheets("Sedes").Range("$G$4").value
   yearNow = year(Date)
   monthNow = Month(Date)
 
@@ -528,8 +540,8 @@ End Sub
 
 Public Sub dirsPisisSuperSalud()
 
-  Dim route As String
-  Dim entity As Range
+  Dim route As String, Name As String
+  Dim entity As Range, item As Variant
 
   route = ThisWorkbook.Path
   Name = ActiveWorkbook.Name
@@ -560,8 +572,8 @@ End Sub
 
 Public Sub dirsSedes()
 
-  Dim route As String
-  Dim sedes As Range
+  Dim route As String, Name As String, refName() As String
+  Dim sedes As Range, item As Variant
 
   route = ThisWorkbook.Path
   Name = ActiveWorkbook.Name
@@ -579,5 +591,16 @@ Public Sub dirsSedes()
 
   ThisWorkbook.Save
   ThisWorkbook.Close
+
+End Sub
+
+Public Sub updateBook()
+  Dim my_directory As String
+  
+  my_directory = ThisWorkbook.Worksheets("Sedes").Range("G3").Value
+
+  If Dir(CStr(my_directory), vbDirectory) <> Empty Then
+    Application.ActiveWorkbook.SaveCopyAs Filename:=my_directory & Application.PathSeparator & ThisWorkbook.Name
+  End If
 
 End Sub

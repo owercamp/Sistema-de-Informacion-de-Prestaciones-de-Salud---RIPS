@@ -141,7 +141,7 @@ Public Sub AGREGAR_VALOR_PROCEDIMIENTO()
   'ORGANIZAR DE MENOR A MAYOR
   ActiveWorkbook.Worksheets("PROCEDIMIENTOS").AutoFilter.Sort.SortFields.Add Key _
   :=Range("O1:O14064"), SortOn:=xlSortOnValues, Order:=xlDescending, _
-  DataOption:=xlSortNormalt
+  DataOption:=xlSortNormal
   With ActiveWorkbook.Worksheets("PROCEDIMIENTOS").AutoFilter.Sort
     .Apply
   End With

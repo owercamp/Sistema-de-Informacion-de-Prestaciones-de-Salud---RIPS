@@ -26,15 +26,19 @@ End Sub
 
 Public Sub LimpiezaDiag()
 
+  Dim counter As LongPtr
   Worksheets("CONSULTA").Select
 
-  Application.ScreenUpdating = True
+  Application.ScreenUpdating = False
   Application.Calculation = xlCalculationManual
   Application.EnableEvents = False
 
   Range("J2").Select
+  counter = 1
   '' LIMPIEZA DE LAS CELDAS J, K, L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA I ''
   Do While Not IsEmpty(ActiveCell)
+    counter = counter + 1
+    Application.StatusBar = "Limpiando " & CStr(counter) &" Diagnosticos"
     On Error GoTo Error2042
     If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
       ActiveCell.Offset(0, 1) = Empty
@@ -68,6 +72,8 @@ Public Sub LimpiezaDiag()
 
   '' LIMPIEZA DE LAS CELDAS K, L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA J ''
   Do While Not IsEmpty(ActiveCell.Offset(0, -1))
+    counter = counter + 1
+    Application.StatusBar = "Limpiando " & CStr(counter) &" Diagnosticos"
     If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
       ActiveCell.Offset(0, 1) = Empty
     End If
@@ -98,6 +104,8 @@ Public Sub LimpiezaDiag()
 
   '' LIMPIEZA DE LAS CELDAS L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA K ''
   Do While Not IsEmpty(ActiveCell.Offset(0, -2))
+    counter = counter + 1
+    Application.StatusBar = "Limpiando " & CStr(counter) &" Diagnosticos"
     If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
       ActiveCell.Offset(0, 1) = Empty
     End If
@@ -123,6 +131,8 @@ Public Sub LimpiezaDiag()
 
   '' LIMPIEZA DE LAS CELDAS M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA L ''
   Do While Not IsEmpty(ActiveCell.Offset(0, -3))
+    counter = counter + 1
+    Application.StatusBar = "Limpiando " & CStr(counter) &" Diagnosticos"
     If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
       ActiveCell.Offset(0, 1) = Empty
     End If
@@ -132,6 +142,7 @@ Public Sub LimpiezaDiag()
 
   Range("M2").Select
 
+  Application.StatusBar = "Limpieza de " & CStr(counter) &" Diagnosticos completada"
   Application.ScreenUpdating = True
   Application.Calculation = xlCalculationAutomatic
   Application.EnableEvents = True
@@ -269,6 +280,10 @@ End Sub
 
 Public Sub ClearCharter()
 
+  Application.ScreenUpdating = False
+  Application.Calculation =xlCalculationManual
+  Application.EnableEvents = False
+
   ActiveWorkbook.Worksheets("USUARIO").Select
 
   Select Case ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value
@@ -302,6 +317,10 @@ Public Sub ClearCharter()
     Loop
   End Select
 
+  Application.ScreenUpdating = True
+  Application.Calculation = xlAutomatic
+  Application.EnableEvents = True
+
   MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
 
 End Sub
@@ -328,7 +347,7 @@ End Function
 Public Sub entityClean()
 
   Dim dir_separate() As String, list_sedes() As String, obj As String
-  Dim rng As Range
+  Dim rng As Range, item As Variant
   Dim counter As Integer
   counter = 1
 

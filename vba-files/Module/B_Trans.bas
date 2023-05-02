@@ -81,7 +81,7 @@ End Sub
 
 Public Function EQUALIZE(ByVal searchValue As String, ByVal rangeOne As Range, ByVal positionOne As Integer, ByVal rangeTwo As Range, ByVal positionTwo As Integer)
 
-  Dim accumulator As LongPtr
+  Dim accumulator As LongPtr, item As Variant
 
   For Each item In rangeOne
     If Trim(UCase(item)) = Trim(UCase(searchValue)) Then
