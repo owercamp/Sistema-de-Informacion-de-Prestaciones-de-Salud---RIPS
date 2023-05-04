@@ -3,17 +3,21 @@ Option Explicit
 
 Public Sub DEPURAR_CONSULTA()
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   Call COMPARAR_CONSULTA
   Call FECHA_CONSULTA
   Call FINALIDAD_CAUSA
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
   ActiveWorkbook.Save
 
@@ -103,9 +107,11 @@ End Sub
 
 Public Sub DEPURAR_CONSULTA2()
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   Call TRAER_DIAG
   Call AGREGAR_Z100
@@ -121,9 +127,11 @@ Public Sub DEPURAR_CONSULTA2()
 
   Range("A1").Select
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
   ActiveWorkbook.Save
 

@@ -3,9 +3,11 @@ Option Explicit
 
 Public Sub DEPURAR_TRANS()
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   Call COMPARAR_CANTIDAD
   Call FECHA_TRANS
@@ -13,9 +15,11 @@ Public Sub DEPURAR_TRANS()
   Columns("A:A").Select
   Selection.NumberFormat = "0"
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
   ActiveWorkbook.Save
 
@@ -87,12 +91,14 @@ Public Function EQUALIZE(ByVal searchValue As String, ByVal rangeOne As Range, B
     If Trim(UCase(item)) = Trim(UCase(searchValue)) Then
       accumulator = accumulator + CLngPtr(item.Offset(, positionOne))
     End If
+    DoEvents
   Next item
 
   For Each item In rangeTwo
     If Trim(UCase(item)) = Trim(UCase(searchValue)) Then
       accumulator = accumulator + CLngPtr(item.Offset(, positionTwo))
     End If
+    DoEvents
   Next item
 
   EQUALIZE = accumulator

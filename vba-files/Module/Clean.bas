@@ -29,9 +29,11 @@ Public Sub LimpiezaDiag()
   Dim counter As LongPtr
   Worksheets("CONSULTA").Select
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   Range("J2").Select
   counter = 1
@@ -142,10 +144,12 @@ Public Sub LimpiezaDiag()
 
   Range("M2").Select
 
-  Application.StatusBar = "Limpieza de " & CStr(counter) &" Diagnosticos completada"
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .StatusBar = "Limpieza de " & CStr(counter) &" Diagnosticos completada"
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
  Error2042:
   Resume Next
@@ -156,9 +160,11 @@ Public Sub finalidad()
 
   Dim val As String
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   Sheets("CONSULTA").Select
   Range("H2").Select
@@ -169,12 +175,15 @@ Public Sub finalidad()
     val = ActiveCell
     ActiveCell = "0" + val
     ActiveCell.Offset(1, 0).Select
+    DoEvents
   Loop
 
   Range("H2").Select
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
 End Sub
 
@@ -184,10 +193,12 @@ Public Sub cleanData()
 
   Set book = ThisWorkbook
 
-  Application.StatusBar = "Limpiando Informacion"
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .StatusBar = "Limpiando Informacion"
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   '' LIMPIA LA HOJA USUARIOS ''
   book.Worksheets("USUARIO").Select
@@ -210,10 +221,12 @@ Public Sub cleanData()
   Call ranges
 
   book.Worksheets("USUARIO").Select
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
-  Application.StatusBar = Empty
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+    .StatusBar = Empty
+  End With
 
   MsgBox "Limpieza Completa", vbOKOnly + vbInformation, "Limpieza"
 
@@ -280,9 +293,11 @@ End Sub
 
 Public Sub ClearCharter()
 
-  Application.ScreenUpdating = False
-  Application.Calculation =xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation =xlCalculationManual
+    .EnableEvents = False
+  End With
 
   ActiveWorkbook.Worksheets("USUARIO").Select
 
@@ -296,6 +311,7 @@ Public Sub ClearCharter()
     Do While Not IsEmpty(ActiveCell)
       ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
       ActiveCell.Offset(1, 0).Select
+      DoEvents
     Loop
    Case 1 , 2
     Cells.Find(What:="primerapellido", After:=ActiveCell, LookIn:= _
@@ -303,8 +319,7 @@ Public Sub ClearCharter()
     xlNext, MatchCase:=False, SearchFormat:=False).Activate
     If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 1 Then
       ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 2
-    End If
-    If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 2 Then
+    ElseIf ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 2 Then
       ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 0
     End If
     Selection.Offset(1, 0).Select
@@ -314,34 +329,65 @@ Public Sub ClearCharter()
       ActiveCell.Offset(, 2) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 2))
       ActiveCell.Offset(, 3) = ReplaceNonAlphaNumeric(ActiveCell.Offset(, 3))
       ActiveCell.Offset(1, 0).Select
+      DoEvents
     Loop
   End Select
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlAutomatic
+    .EnableEvents = True
+  End With
 
   MsgBox "Correcciones realizadas, exitosamente!!", vbInformation, "Correcciones"
 
 End Sub
 
 Public Function ReplaceNonAlphaNumeric(str As String) As String
-  Dim regEx As Object, regEx2 As Object
-  Dim Val As String
+  Dim regEx As Object, LetterA As String, LetterE As String, LetterI As String, LetterO As String, LetterU As String, LetterN As String
 
   Set regEx = CreateObject("vbscript.regexp")
-  Set regEx2 = CreateObject("vbscript.regexp")
 
-  regEx2.Pattern = Chr(209)
-  regEx2.Global = True
-  Val = Trim(regEx2.Replace(str, Chr(78)))
+  '' Define la expresión regular para encontrar las a con tilde ''
+  regEx.Pattern ="(["& Chr(193) &""& Chr(192) &"])"
+  regEx.Global = True
+
+  LetterA = regEx.Replace(str,Chr(65))
+
+  '' Define la expresión regular para encontrar las e con tilde ''
+  regEx.Pattern ="(["& Chr(200) &""& Chr(201) &"])"
+  regEx.Global = True
+
+  LetterE = regEx.Replace(LetterA,Chr(69))
+
+  '' Define la expresión regular para encontrar las i con tilde ''
+  regEx.Pattern ="(["& Chr(204) &""& Chr(205) &"])"
+  regEx.Global = True
+
+  LetterI = regEx.Replace(LetterE,Chr(73))
+
+  '' Define la expresión regular para encontrar las o con tilde ''
+  regEx.Pattern ="(["& Chr(210) &""& Chr(211) &"])"
+  regEx.Global = True
+
+  LetterO = regEx.Replace(LetterI,Chr(79))
+
+  '' Define la expresión regular para encontrar las u con tilde ''
+  regEx.Pattern ="(["& Chr(217) &""& Chr(218) &"])"
+  regEx.Global = True
+
+  LetterU = regEx.Replace(LetterO,Chr(85))
+
+  regEx.Pattern = Chr(209)
+  regEx.Global = True
+  LetterN = regEx.Replace(LetterU, Chr(78))
 
   ' Define la expresion regular para encontrar valores no alfanumericos '
   regEx.Pattern = "[^a-zA-Z" & Chr(209) & "]"
   regEx.Global = True
 
   ' Reemplaza cualquier valor no alfanumerico por un espacio '
-  ReplaceNonAlphaNumeric = Trim(regEx.Replace(Val, " "))
+  ReplaceNonAlphaNumeric = Trim(regEx.Replace(LetterN, " "))
 End Function
 
 Public Sub entityClean()
@@ -363,6 +409,7 @@ Public Sub entityClean()
       list_sedes(counter) = CStr(item.Offset(, 1).value)
       counter = counter + 1
     End If
+    DoEvents
   Next item
 
   Worksheets("USUARIO").Select

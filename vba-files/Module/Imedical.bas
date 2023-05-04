@@ -10,9 +10,11 @@ Public Sub iMedical()
   Dim item As Variant, headquarters As Variant, separateRoute As Variant, itemArchive As Variant, nameArchive As Variant
   Set folder = CreateObject("Scripting.FileSystemObject")
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   ' sedes '
   headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL","BOGOTA","IBAGUE")
@@ -187,10 +189,13 @@ Public Sub iMedical()
         End If
       Next itemArchive
     End If
+    DoEvents
   Next item
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
 End Sub

@@ -3,9 +3,11 @@ Option Explicit
 
 Public Sub DEPURAR_PROCEDIMIENTOS()
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   Call COMPARAR_PROCEDIMIENTOS
   Call QUITAR_GUIONES
@@ -32,9 +34,11 @@ Public Sub DEPURAR_PROCEDIMIENTOS()
 
   Range("A1").Select
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
   ActiveWorkbook.Save
 

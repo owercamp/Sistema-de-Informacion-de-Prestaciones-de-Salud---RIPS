@@ -228,9 +228,11 @@ Public Sub MACRO1()
 
   Set f = CreateObject("scripting.filesystemobject")
   DIRECTORY = ThisWorkbook.Worksheets("Sedes").Range("$G$5").value
-  Application.EnableEvents = False        'desactivar eventos
-  Application.ScreenUpdating = False      'desactivar monitor
-  Application.DisplayAlerts = False       'desactivar alertas
+  With Application
+    .EnableEvents = False        'desactivar eventos
+    .ScreenUpdating = False      'desactivar monitor
+    .DisplayAlerts = False       'desactivar alertas
+  End With
 
   If f.fileexists(DIRECTORY & Application.PathSeparator & "RIPS\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT") Then
     Kill (DIRECTORY & Application.PathSeparator & "RIPS\RIP165RIPS" & Sheets("REFERENCIAS").Cells(1, 20) & "NI000830029102.DAT")
@@ -247,9 +249,11 @@ Public Sub MACRO1()
 
   Sheets("REFERENCIAS").Select
 
-  Application.ScreenUpdating = True       'activar eventos
-  Application.DisplayAlerts = True        'activar monitor
-  Application.EnableEvents = True     'activar alertas
+  With Application
+    .ScreenUpdating = True       'activar eventos
+    .DisplayAlerts = True        'activar monitor
+    .EnableEvents = True     'activar alertas
+  End With
 End Sub
 
 Public Sub ELIMINAR_CELDAS_SOBRANTES()
@@ -266,9 +270,11 @@ End Sub
 
 Public Sub COMPLETAR_TOTALES()
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   'sumar procedimientos
   Sheets("PROCEDIMIENTOS").Select
@@ -341,9 +347,11 @@ Public Sub COMPLETAR_TOTALES()
   Sheets("REFERENCIAS").Select
   Range("E1").Select
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
   ActiveWorkbook.Save
 
@@ -366,16 +374,16 @@ Public Sub eliminar_filas_restante()
     Selection.EntireRow.Select
     Range(Selection, Selection.End(xlDown)).Select
     Selection.Delete Shift:=xlUp
+    DoEvents
+  Next Hoja
 
-    Next
+  Sheets("REFERENCIAS").Visible = True
+  Sheets("DIAG").Visible = True
+  Sheets("DESTINO").Visible = True
+  Sheets("C" & Chr(243) & "digo de pa" & Chr(237) & "ses").Visible = True
 
-    Sheets("REFERENCIAS").Visible = True
-    Sheets("DIAG").Visible = True
-    Sheets("DESTINO").Visible = True
-    Sheets("C" & Chr(243) & "digo de pa" & Chr(237) & "ses").Visible = True
-
-    Sheets("REFERENCIAS").Select
-    Range("E1").Select
+  Sheets("REFERENCIAS").Select
+  Range("E1").Select
 
 End Sub
 
@@ -387,9 +395,11 @@ Public Sub importInfo()
   Dim fso As Object
   Set fso = CreateObject("Scripting.FileSystemObject")
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   dirs = ThisWorkbook.Worksheets("Sedes").Range("$G$3").value
 
@@ -462,9 +472,11 @@ Public Sub importInfo()
   Call splitProcedure
   Procedimiento.Close
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
   Reporte.Worksheets("USUARIO").Select
 
@@ -562,7 +574,7 @@ Public Sub dirsPisisSuperSalud()
         Application.ActiveWorkbook.SaveCopyAs Filename:=CStr(route) & "\" & CStr(Item) & "\" & CStr(Item) & "_1.1.xlsb"
       End If
     End If
-
+    DoEvents
   Next Item
 
   ActiveWorkbook.Save
@@ -586,6 +598,7 @@ Public Sub dirsSedes()
       MkDir CStr(route) & "\" & CStr(Item)
       Application.ActiveWorkbook.SaveCopyAs Filename:=CStr(route) & "\" & CStr(Item) & "\" & CStr(Name)
       Application.ActiveWorkbook.SaveCopyAs Filename:=CStr(route) & "\" & CStr(Item) & "\" & refName(0) & "-" & Item & "_1.1.xlsb"
+      DoEvents
     Next Item
   End If
 
@@ -596,7 +609,7 @@ End Sub
 
 Public Sub updateBook()
   Dim my_directory As String
-  
+
   my_directory = ThisWorkbook.Worksheets("Sedes").Range("G3").Value
 
   If Dir(CStr(my_directory), vbDirectory) <> Empty Then

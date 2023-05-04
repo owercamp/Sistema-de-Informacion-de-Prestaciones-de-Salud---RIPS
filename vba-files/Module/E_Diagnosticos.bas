@@ -3,9 +3,11 @@ Option Explicit
 
 Public Sub depurar_diagnosticos()
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   'REEMPLAZA U07.2 Y U07.1 POR LOS OROGINALES SIN PUNTO
   Range("B2").Select
@@ -55,9 +57,11 @@ Public Sub depurar_diagnosticos()
   Selection.Replace What:="0pc_", Replacement:=""
   Selection.Replace What:="ull,", Replacement:=""
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
   ActiveWorkbook.Save
 

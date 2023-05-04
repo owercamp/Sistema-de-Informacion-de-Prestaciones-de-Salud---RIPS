@@ -5,9 +5,11 @@ Public Sub DEPURAR_USUARIO()
 
   Sheets("USUARIO").Select
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   'REEMPLAZAR_CARACTERES
   Dim data As Variant
@@ -127,9 +129,11 @@ Public Sub DEPURAR_USUARIO()
     Range("U1").Select
     ActiveCell.FormulaR1C1 = "CODIGO_PAIS"
 
-    Application.ScreenUpdating = True
-    Application.Calculation = xlCalculationAutomatic
-    Application.EnableEvents = True
+    With Application
+      .ScreenUpdating = True
+      .Calculation = xlCalculationAutomatic
+      .EnableEvents = True
+    End With
 
 End Sub
 
@@ -137,9 +141,11 @@ Public Sub USUARIO_PARTE2()
 
   'CEDULA_REC
 
-  Application.ScreenUpdating = False
-  Application.Calculation = xlCalculationManual
-  Application.EnableEvents = False
+  With Application
+    .ScreenUpdating = False
+    .Calculation = xlCalculationManual
+    .EnableEvents = False
+  End With
 
   Sheets("USUARIO").Select
   Columns("V:V").Select
@@ -178,9 +184,11 @@ Public Sub USUARIO_PARTE2()
   Application.CutCopyMode = False
   Range("B1").Select
 
-  Application.ScreenUpdating = True
-  Application.Calculation = xlCalculationAutomatic
-  Application.EnableEvents = True
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
 End Sub
 
