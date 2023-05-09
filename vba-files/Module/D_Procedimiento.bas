@@ -86,6 +86,7 @@ Public Sub QUITAR_GUIONES()
   Selection.Replace What:="-08", Replacement:=""
   Selection.Replace What:="-09", Replacement:=""
   Selection.Replace What:="100004", Replacement:="903818"
+  Selection.Replace What:="100006", Replacement:="993125"
   Selection.Replace What:="906916", Replacement:="906915"
   Selection.Replace What:="903825", Replacement:="903895"
   Selection.Replace What:="902212", Replacement:="911016"
@@ -93,6 +94,7 @@ Public Sub QUITAR_GUIONES()
   Selection.Replace What:="100008", Replacement:="993510"
   Selection.Replace What:="100007", Replacement:="993503"
   Selection.Replace What:="100014", Replacement:="993505"
+  Selection.Replace What:="100011", Replacement:="993522"
 
 End Sub
 
@@ -144,14 +146,14 @@ Public Sub AGREGAR_VALOR_PROCEDIMIENTO()
 
   'ORGANIZAR DE MENOR A MAYOR
   ActiveWorkbook.Worksheets("PROCEDIMIENTOS").AutoFilter.Sort.SortFields.Add Key _
-  :=Range("O1:O14064"), SortOn:=xlSortOnValues, Order:=xlDescending, _
+  :=Range("$O1:$O50000"), SortOn:=xlSortOnValues, Order:=xlDescending, _
   DataOption:=xlSortNormal
   With ActiveWorkbook.Worksheets("PROCEDIMIENTOS").AutoFilter.Sort
     .Apply
   End With
 
   'FILTRAR LOS CEROS (0)
-  ActiveSheet.Range("$A$1:$O$14064").AutoFilter ActiveCell.Column, Criteria1:="0"
+  ActiveSheet.Range("$A$1:$O$50000").AutoFilter ActiveCell.Column, Criteria1:="0"
   Selection.End(xlDown).Select
 
   ' SI LA CENDA SELECCIONADA ESTA VACIA SALTE A algo:

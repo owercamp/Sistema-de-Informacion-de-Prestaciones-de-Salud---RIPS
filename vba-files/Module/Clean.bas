@@ -397,6 +397,12 @@ Public Sub entityClean()
   Dim counter As Integer
   counter = 1
 
+  With Application
+    .ScreenUpdating = False
+    .Calculation =xlCalculationManual
+    .EnableEvents = False
+  End With
+
   obj = ThisWorkbook.BuiltinDocumentProperties.Parent.Path
 
   dir_separate = VBA.Split(obj, "\")
@@ -527,5 +533,11 @@ Public Sub entityClean()
   Columns("B:B").Select
   Selection.Delete Shift:=xlToLeft
   Range("A2").Select
+
+  With Application
+    .ScreenUpdating = True
+    .Calculation = xlCalculationAutomatic
+    .EnableEvents = True
+  End With
 
 End Sub

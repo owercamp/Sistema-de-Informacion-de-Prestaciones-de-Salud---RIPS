@@ -143,12 +143,12 @@ Public Sub Zip_All_Files_in_Folder()
   Do Until oApp.Namespace(FileNameZip).items.Count = _
     oApp.Namespace(FolderName).items.Count
     Application.Wait (Now + TimeValue("0:00:01"))
+    DoEvents
   Loop
   On Error GoTo 0
 
   'MsgBox "You find the zipfile here: " & FileNameZip
 End Sub
-
 
 Public Sub Zip_File_Or_Files()
   Dim strDate As String, DefPath As String, sFName As String
@@ -192,6 +192,7 @@ Public Sub Zip_File_Or_Files()
         Loop
         On Error GoTo 0
       End If
+      DoEvents
     Next iCtr
 
     'MsgBox "You find the zipfile here: " & FileNameZip
@@ -207,20 +208,17 @@ Public Sub NewZip(sPath)
     Close #1
 End Sub
 
-
 Public Function bIsBookOpen(ByRef szBookName As String) As Boolean
   ' Rob Bovey
   On Error Resume Next
   bIsBookOpen = Not (Application.Workbooks(szBookName) Is Nothing)
 End Function
 
-
 Public Function Split97(sStr As Variant, sdelim As String) As Variant
   'Tom Ogilvy
   Split97 = Evaluate("{""" & _
   Application.Substitute(sStr, sdelim, """,""") & """}")
 End Function
-
 
 Public Sub MACRO1()
 
@@ -266,7 +264,6 @@ Public Sub ELIMINAR_CELDAS_SOBRANTES()
   Selection.Delete Shift:=xlUp
 
 End Sub
-
 
 Public Sub COMPLETAR_TOTALES()
 

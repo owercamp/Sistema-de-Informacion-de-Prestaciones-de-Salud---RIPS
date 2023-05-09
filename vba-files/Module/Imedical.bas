@@ -55,6 +55,7 @@ Public Sub iMedical()
   separateRoute = VBA.Split(route, ";")
 
   For Each item In headquarters
+    DoEvents
     If (folder.FolderExists(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)) Then
 
       set archives = folder.getFolder(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)
@@ -82,15 +83,15 @@ Public Sub iMedical()
           Do While Not IsEmpty(ActiveCell)
             Select Case Trim(item)
              Case "MEDELLIN"
-              ActiveCell.offset(,2) = "EAS016"
+              ActiveCell.offset(,2) = Trim("EAS016")
              Case "VILLAVICENCIO"
-              ActiveCell.offset(,2) = "50000"
+              ActiveCell.offset(,2) = Trim("50000")
              Case "POLO II","POLO I","CHICO","ZONA INDUSTRIAL","BOGOTA"
-              ActiveCell.offset(,2) = "SDS001"
+              ActiveCell.offset(,2) = Trim("SDS001")
              Case "PEREIRA"
-              ActiveCell.offset(,2) = "66000"
+              ActiveCell.offset(,2) = Trim("66000")
              Case "IBAGUE"
-              ActiveCell.offset(,2) = "73000"
+              ActiveCell.offset(,2) = Trim("73000")
             End Select
             ActiveCell.Offset(1, 0).Select
           Loop
@@ -121,15 +122,15 @@ Public Sub iMedical()
           Do While Not IsEmpty(ActiveCell.Offset(,1))
             Select Case Trim(item)
              Case "MEDELLIN"
-              ActiveCell.offset(,8) = "EAS016"
+              ActiveCell.offset(,8) = Trim("EAS016")
              Case "VILLAVICENCIO"
-              ActiveCell.offset(,8) = "50000"
+              ActiveCell.offset(,8) = Trim("50000")
              Case "POLO II","POLO I","CHICO","ZONA INDUSTRIAL","BOGOTA"
-              ActiveCell.offset(,8) = "SDS001"
+              ActiveCell.offset(,8) = Trim("SDS001")
              Case "PEREIRA"
-              ActiveCell.offset(,8) = "66000"
+              ActiveCell.offset(,8) = Trim("66000")
              Case "IBAGUE"
-              ActiveCell.offset(,8) = "73000"
+              ActiveCell.offset(,8) = Trim("73000")
             End Select
             ActiveCell.Offset(1, 0).Select
           Loop
@@ -189,7 +190,6 @@ Public Sub iMedical()
         End If
       Next itemArchive
     End If
-    DoEvents
   Next item
 
   With Application
