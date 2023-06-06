@@ -256,9 +256,9 @@ End Sub
 
 Public Sub ELIMINAR_CELDAS_SOBRANTES()
 
-  Range("B1").Select
+  Range("E1").Select
   Selection.End(xlDown).Select
-  ActiveCell.Offset(1, -1).Activate
+  ActiveCell.Offset(1, -4).Activate
   Selection.EntireRow.Select
   Range(Selection, Selection.End(xlDown)).Select
   Selection.Delete Shift:=xlUp
@@ -377,7 +377,7 @@ Public Sub eliminar_filas_restante()
   Sheets("REFERENCIAS").Visible = True
   Sheets("DIAG").Visible = True
   Sheets("DESTINO").Visible = True
-  Sheets("C" & Chr(243) & "digo de pa" & Chr(237) & "ses").Visible = True
+  Sheets("C" & Chr(243) & "digo de pa" & Chr(237) & "ses").Visible = False
 
   Sheets("REFERENCIAS").Select
   Range("E1").Select

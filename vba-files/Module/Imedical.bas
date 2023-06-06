@@ -17,7 +17,7 @@ Public Sub iMedical()
   End With
 
   ' sedes '
-  headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL","BOGOTA","IBAGUE")
+  headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL","BOGOTA","IBAGUE","BUCARAMANGA","CALI","CARTAGENA")
   yearNow = year(Date)
 
   ' seleccion del mes '
@@ -58,7 +58,7 @@ Public Sub iMedical()
     DoEvents
     If (folder.FolderExists(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)) Then
 
-      set archives = folder.getFolder(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)
+      Set archives = folder.getFolder(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)
 
       For Each itemArchive In archives.Files
         '/* Proceso para la hoja Usuarios '*/
@@ -92,6 +92,10 @@ Public Sub iMedical()
               ActiveCell.offset(,2) = Trim("66000")
              Case "IBAGUE"
               ActiveCell.offset(,2) = Trim("73000")
+             Case "CARTAGENA"
+              ActiveCell.offset(,2) = Trim("13001")
+             Case "BUCARAMANGA"
+              ActiveCell.offset(,2) = Trim("68000")
             End Select
             ActiveCell.Offset(1, 0).Select
           Loop
@@ -100,7 +104,7 @@ Public Sub iMedical()
           Range("A1").Select
           Selection.End(xlDown).Select
           ThisWorkbook.Connections(nameArchive(0)).Delete
-        ElseIf (VBA.InStr(itemArchive.Name, "AF") = 1) Then
+        Elseif (VBA.InStr(itemArchive.Name, "AF") = 1) Then
           '/* Proceso para la hoja Trans '*/
           ThisWorkbook.Worksheets("TRANS").Select
           nameArchive = VBA.Split(itemArchive.Name,".")
@@ -131,6 +135,10 @@ Public Sub iMedical()
               ActiveCell.offset(,8) = Trim("66000")
              Case "IBAGUE"
               ActiveCell.offset(,8) = Trim("73000")
+             Case "CARTAGENA"
+              ActiveCell.offset(,8) = Trim("13001")
+             Case "BUCARAMANGA"
+              ActiveCell.offset(,8) = Trim("68000")
             End Select
             ActiveCell.Offset(1, 0).Select
           Loop
@@ -139,7 +147,7 @@ Public Sub iMedical()
           Range("B1").Select
           Selection.End(xlDown).Select
           ThisWorkbook.Connections(nameArchive(0)).Delete
-        ElseIf (VBA.InStr(itemArchive.Name, "AC") = 1) Then
+        Elseif (VBA.InStr(itemArchive.Name, "AC") = 1) Then
           '/* Proceso para la hoja Consulta '*/
           ThisWorkbook.Worksheets("CONSULTA").Select
           nameArchive = VBA.Split(itemArchive.Name,".")
@@ -163,7 +171,7 @@ Public Sub iMedical()
           Range("A1").Select
           Selection.End(xlDown).Select
           ThisWorkbook.Connections(nameArchive(0)).Delete
-        ElseIf (VBA.InStr(itemArchive.Name, "AP") = 1) Then
+        Elseif (VBA.InStr(itemArchive.Name, "AP") = 1) Then
           '/* Proceso para la hoja Procedimiento '*/
           ThisWorkbook.Worksheets("PROCEDIMIENTOS").Select
           nameArchive = VBA.Split(itemArchive.Name,".")
@@ -197,5 +205,7 @@ Public Sub iMedical()
     .Calculation = xlCalculationAutomatic
     .EnableEvents = True
   End With
+
+  MsgBox "Importaci" &ChrW(243)& "n de informaci" &ChrW(243)& "n i-medical terminada",vbInformation,"Importar..." 
 
 End Sub

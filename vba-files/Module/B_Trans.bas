@@ -31,7 +31,7 @@ Public Sub COMPARAR_CANTIDAD()
   Columns("F:F").Select
   Selection.Insert Shift:=xlToRight
   Range("F2").Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-1],USUARIO!C[9],1,0)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC5,USUARIO!C15,1,0)"
   Selection.Copy
   Range("E2").Select
   Selection.End(xlDown).Select

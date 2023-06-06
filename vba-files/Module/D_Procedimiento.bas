@@ -50,7 +50,7 @@ Public Sub COMPARAR_PROCEDIMIENTOS()
   Columns("B:B").Select
   Selection.Insert Shift:=xlToRight
   Range("B2").Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-1],USUARIO!C[13],1,0)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,USUARIO!C15,1,0)"
   Selection.Copy
   Range("A2").Select
   Selection.End(xlDown).Select

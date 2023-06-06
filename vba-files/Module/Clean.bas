@@ -25,135 +25,122 @@ Public Sub Macro2()
 End Sub
 
 Public Sub LimpiezaDiag()
+  '? Esta subrutina limpia los datos en la hoja "CONSULTA".
 
-  Dim counter As LongPtr
-  Worksheets("CONSULTA").Select
+  '? Declara variables y establece valores iniciales.
+  Dim counter As LongPtr, i As LongPtr
+  Dim ws As Worksheet
+  Dim cell As Range
+  Set ws = Worksheets("CONSULTA")
+  counter = 1
+  Set cell = ws.Range("J2")
 
+  '? Deshabilita la actualizacion de pantalla, eventos y calculos automaticos.
   With Application
     .ScreenUpdating = False
     .Calculation = xlCalculationManual
     .EnableEvents = False
+    .StatusBar = "Limpiando " & CStr(counter) & " Diagnosticos"
   End With
 
-  Range("J2").Select
-  counter = 1
-  '' LIMPIEZA DE LAS CELDAS J, K, L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA I ''
-  Do While Not IsEmpty(ActiveCell)
+  '* Recorre el rango y elimina duplicados en la misma fila.
+  Do While Not IsEmpty(cell)
     counter = counter + 1
-    Application.StatusBar = "Limpiando " & CStr(counter) &" Diagnosticos"
-    On Error GoTo Error2042
-    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 1) = Empty
-    End If
-    If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 2) = Empty
-    End If
-    If Trim(ActiveCell.Offset(0, 3)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 3) = Empty
-    End If
-    If Trim(ActiveCell.Offset(0, 4)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 4) = Empty
-    End If
-    ActiveCell.Offset(1, 0).Select
-    DoEvents
-  Loop
-  Range("J2").Select
-
-  '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
-  Do While Not IsEmpty(ActiveCell)
-    If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
-      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
-    ElseIf (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) = Empty Or ActiveCell.Offset(0, 2) = "") And (ActiveCell.Offset(0, 3) <> Empty Or ActiveCell.Offset(0, 3) <> "") Then
-      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 3)
-    End If
-    ActiveCell.Offset(1, 0).Select
+    Application.StatusBar = "Limpiando " & CStr(counter) & " Diagnosticos"
+    On Error Resume Next
+    For i = 1 To 4
+      If Trim(cell.Offset(0, i)) = Trim(cell) Then
+        cell.Offset(0, i) = Empty
+      End If
+    Next i
+    Set cell = cell.Offset(1, 0)
     DoEvents
   Loop
 
-  Range("K2").Select
+  '* Recorre el rango y copia las celdas no vacias a las celdas vacias adyacentes en la misma fila.
+  Set cell = ws.Range("J2")
+  Do While Not IsEmpty(cell)
+    If (cell.Offset(0, 1) = Empty Or cell.Offset(0, 1) = "") And (cell.Offset(0, 2) <> Empty Or cell.Offset(0, 2) <> "") Then
+      cell.Offset(0, 1) = cell.Offset(0, 2)
+    Elseif (cell.Offset(0, 1) = Empty Or cell.Offset(0, 1) = "") And (cell.Offset(0, 2) = Empty Or cell.Offset(0, 2) = "") And (cell.Offset(0, 3) <> Empty Or cell.Offset(0, 3) <> "") Then
+      cell.Offset(0, 1) = cell.Offset(0, 3)
+    End If
+    Set cell = cell.Offset(1, 0)
+    DoEvents
+  Loop
 
-  '' LIMPIEZA DE LAS CELDAS K, L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA J ''
-  Do While Not IsEmpty(ActiveCell.Offset(0, -1))
+  '* Recorre el rango y elimina duplicados en la misma fila.
+  Set cell = ws.Range("K2")
+  Do While Not IsEmpty(cell.Offset(0, -1))
     counter = counter + 1
-    Application.StatusBar = "Limpiando " & CStr(counter) &" Diagnosticos"
-    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 1) = Empty
-    End If
-    If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 2) = Empty
-    End If
-    If Trim(ActiveCell.Offset(0, 3)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 3) = Empty
-    End If
-    ActiveCell.Offset(1, 0).Select
+    Application.StatusBar = "Limpiando " & CStr(counter) & " Diagnosticos"
+    For i = 1 To 3
+      If Trim(cell.Offset(0, i)) = Trim(cell) Then
+        cell.Offset(0, i) = Empty
+      End If
+    Next i
+    Set cell = cell.Offset(1, 0)
     DoEvents
   Loop
 
-  Range("K2").Select
-
-  '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
-  Do While Not IsEmpty(ActiveCell.Offset(0, -1))
-    If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
-      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
-    ElseIf (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) = Empty Or ActiveCell.Offset(0, 2) = "") And (ActiveCell.Offset(0, 3) <> Empty Or ActiveCell.Offset(0, 3) <> "") Then
-      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 3)
+  '* Recorre el rango y copia las celdas no vacias a las celdas vacias adyacentes en la misma fila.
+  Set cell = ws.Range("K2")
+  Do While Not IsEmpty(cell.Offset(0, -1))
+    If (cell.Offset(0, 1) = Empty Or cell.Offset(0, 1) = "") And (cell.Offset(0, 2) <> Empty Or cell.Offset(0, 2) <> "") Then
+      cell.Offset(0, 1) = cell.Offset(0, 2)
+    Elseif (cell.Offset(0, 1) = Empty Or cell.Offset(0, 1) = "") And (cell.Offset(0, 2) = Empty Or cell.Offset(0, 2) = "") And (cell.Offset(0, 3) <> Empty Or cell.Offset(0, 3) <> "") Then
+      cell.Offset(0, 1) = cell.Offset(0, 3)
     End If
-    ActiveCell.Offset(1, 0).Select
+    Set cell = cell.Offset(1, 0)
     DoEvents
   Loop
 
-  Range("L2").Select
-
-  '' LIMPIEZA DE LAS CELDAS L Y M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA K ''
-  Do While Not IsEmpty(ActiveCell.Offset(0, -2))
+  '* Recorre el rango y elimina duplicados en la misma fila.
+  Set cell = ws.Range("L2")
+  Do While Not IsEmpty(cell.Offset(0, -2))
     counter = counter + 1
-    Application.StatusBar = "Limpiando " & CStr(counter) &" Diagnosticos"
-    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 1) = Empty
-    End If
-    If Trim(ActiveCell.Offset(0, 2)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 2) = Empty
-    End If
-    ActiveCell.Offset(1, 0).Select
+    Application.StatusBar = "Limpiando " & CStr(counter) & " Diagnosticos"
+    For i = 1 To 2
+      If Trim(cell.Offset(0, i)) = Trim(cell) Then
+        cell.Offset(0, i) = Empty
+      End If
+    Next i
+    Set cell = cell.Offset(1, 0)
     DoEvents
   Loop
 
-  Range("L2").Select
-
-  '' PASAMOS LOS DATOS SI LA CELDA ESTA VACIA ''
-  Do While Not IsEmpty(ActiveCell.Offset(0, -2))
-    If (ActiveCell.Offset(0, 1) = Empty Or ActiveCell.Offset(0, 1) = "") And (ActiveCell.Offset(0, 2) <> Empty Or ActiveCell.Offset(0, 2) <> "") Then
-      ActiveCell.Offset(0, 1) = ActiveCell.Offset(0, 2)
+  '* Recorre el rango y copia las celdas no vacias a las celdas vacias adyacentes en la misma fila.
+  Set cell = ws.Range("L2")
+  Do While Not IsEmpty(cell.Offset(0, -2))
+    If (cell.Offset(0, 1) = Empty Or cell.Offset(0, 1) = "") And (cell.Offset(0, 2) <> Empty Or cell.Offset(0, 2) <> "") Then
+      cell.Offset(0, 1) = cell.Offset(0, 2)
     End If
-    ActiveCell.Offset(1, 0).Select
+    Set cell = cell.Offset(1, 0)
     DoEvents
   Loop
 
-  Range("M2").Select
-
-  '' LIMPIEZA DE LAS CELDAS M SI HAY DATOS DUPLICADOS REFERENTES A LA COLUMNA L ''
-  Do While Not IsEmpty(ActiveCell.Offset(0, -3))
+  '* Recorre el rango y elimina duplicados en la misma fila.
+  Set cell = ws.Range("M2")
+  Do While Not IsEmpty(cell.Offset(0, -3))
     counter = counter + 1
-    Application.StatusBar = "Limpiando " & CStr(counter) &" Diagnosticos"
-    If Trim(ActiveCell.Offset(0, 1)) = Trim(ActiveCell) Then
-      ActiveCell.Offset(0, 1) = Empty
+    Application.StatusBar = "Limpiando " & CStr(counter) & " Diagnosticos"
+    If Trim(cell.Offset(0, 1)) = Trim(cell) Then
+      cell.Offset(0, 1) = Empty
     End If
-    ActiveCell.Offset(1, 0).Select
+    Set cell = cell.Offset(1, 0)
     DoEvents
   Loop
 
-  Range("M2").Select
-
+  '? Habilita la actualizacion de pantalla, eventos y calculos automaticos.
   With Application
-    .StatusBar = "Limpieza de " & CStr(counter) &" Diagnosticos completada"
+    .StatusBar = "Limpieza de " & CStr(counter) & " Diagnosticos completada"
     .ScreenUpdating = True
     .Calculation = xlCalculationAutomatic
     .EnableEvents = True
   End With
 
  Error2042:
-  Resume Next
-
+ Resume Next
 End Sub
 
 Public Sub finalidad()
@@ -319,7 +306,7 @@ Public Sub ClearCharter()
     xlNext, MatchCase:=False, SearchFormat:=False).Activate
     If ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 1 Then
       ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 2
-    ElseIf ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 2 Then
+    Elseif ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1").value = 2 Then
       ActiveWorkbook.Worksheets("REFERENCIAS").Range("$O$1") = 0
     End If
     Selection.Offset(1, 0).Select
@@ -429,7 +416,7 @@ Public Sub entityClean()
   Columns("F:F").Select
   Selection.Insert Shift:=xlToRight
   Range("F2").Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC5,USUARIO!R2C15:R50000C15,1,FALSE)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC5,USUARIO!R2C15:R50000C15,1,False)"
   Range("F2").Select
   Selection.Copy
   Range("E2").Select
@@ -460,7 +447,7 @@ Public Sub entityClean()
   Columns("P:P").Select
   Selection.Insert Shift:=xlToRight
   Range("P2").Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC15,TRANS!R2C5:R50000C5,1,FALSE)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC15,TRANS!R2C5:R50000C5,1,False)"
   Range("P2").Select
   Selection.Copy
   Range("O2").Select
@@ -486,7 +473,7 @@ Public Sub entityClean()
   Columns("B:B").Select
   Selection.Insert Shift:=xlToRight
   Range("B2").Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,USUARIO!R2C15:R50000C15,1,FALSE)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,USUARIO!R2C15:R50000C15,1,False)"
   Range("B2").Select
   Selection.Copy
   Range("A2").Select
@@ -512,7 +499,7 @@ Public Sub entityClean()
   Columns("B:B").Select
   Selection.Insert Shift:=xlToRight
   Range("B2").Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,USUARIO!R2C15:R50000C15,1,FALSE)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,USUARIO!R2C15:R50000C15,1,False)"
   Range("B2").Select
   Selection.Copy
   Range("A2").Select

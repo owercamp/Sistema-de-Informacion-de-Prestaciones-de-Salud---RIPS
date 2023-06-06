@@ -29,7 +29,7 @@ Public Sub COMPARAR_CONSULTA()
   Columns("B:B").Select
   Selection.Insert Shift:=xlToRight
   Range("B2").Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-1],USUARIO!C[13],1,0)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,USUARIO!C15,1,0)"
   Selection.Copy
   Range("A2").Select
   Selection.End(xlDown).Select
@@ -156,13 +156,13 @@ Public Sub TRAER_DIAG()
   Range("J2").Select
   Selection.End(xlDown).Offset(1, 0).Select
   origin = Selection.Address
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-9],DIAG!C[-9]:C[-3],3,0)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,DIAG!C1:C7,3,0)"
   Selection.Offset(0, 1).Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-10],DIAG!C[-10]:C[-3],4,0)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,DIAG!C1:C8,4,0)"
   Selection.Offset(0, 1).Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-11],DIAG!C[-11]:C[-3],5,0)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,DIAG!C1:C9,5,0)"
   Selection.Offset(0, 1).Select
-  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC[-12],DIAG!C[-12]:C[-3],6,0)"
+  ActiveCell.FormulaR1C1 = "=VLOOKUP(RC1,DIAG!C1:C10,6,0)"
   Range(origin).Select
   Range(Selection, Selection.Offset(, 3)).Select
   Selection.Copy
