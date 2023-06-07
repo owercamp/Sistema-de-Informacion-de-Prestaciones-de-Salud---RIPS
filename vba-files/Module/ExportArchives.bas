@@ -614,3 +614,7 @@ Public Sub updateBook()
   End If
 
 End Sub
+
+Public Sub btn_generate()
+  Call MACRO1
+End Sub
