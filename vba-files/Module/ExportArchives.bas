@@ -588,7 +588,7 @@ Public Sub dirsSedes()
   Name = ActiveWorkbook.Name
   refName = VBA.Split(Name, "-")
 
-  Set sedes = ThisWorkbook.Worksheets("Sedes").Range("B3", ThisWorkbook.Worksheets("Sedes").Range("B3").End(xlDown))
+  Set sedes = ThisWorkbook.Worksheets("REFERENCIAS").Range("I11", ThisWorkbook.Worksheets("REFERENCIAS").Range("I11").End(xlDown))
 
   If Dir(CStr(route), vbDirectory) <> Empty Then
     For Each Item In sedes

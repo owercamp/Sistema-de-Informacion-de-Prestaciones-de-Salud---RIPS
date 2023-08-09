@@ -6,9 +6,13 @@ Public Sub iMedical()
 
   Dim months As String, route As String, destiny As String, splitRoute As String
   Dim yearNow As Integer
-  Dim folder As Object,archives As Object
-  Dim item As Variant, headquarters As Variant, separateRoute As Variant, itemArchive As Variant, nameArchive As Variant
+  Dim folder As Object, archives As Object
+  Dim item As Variant, separateRoute As Variant, itemArchive As Variant, nameArchive As Variant, head As Variant
+  Dim headquarters As Range
   Set folder = CreateObject("Scripting.FileSystemObject")
+
+  ' sedes '
+  Set headquarters = ThisWorkbook.Worksheets("REFERENCIAS").Range("I11", ThisWorkbook.Worksheets("REFERENCIAS").Range("I11").End(xlDown))
 
   With Application
     .ScreenUpdating = False
@@ -16,8 +20,6 @@ Public Sub iMedical()
     .EnableEvents = False
   End With
 
-  ' sedes '
-  headquarters = Array("MEDELLIN", "VILLAVICENCIO", "POLO II", "POLO I", "CHICO", "PEREIRA", "ZONA INDUSTRIAL","BOGOTA","IBAGUE","BUCARAMANGA","CALI","CARTAGENA")
   yearNow = year(Date)
 
   ' seleccion del mes '
@@ -56,21 +58,23 @@ Public Sub iMedical()
 
   For Each item In headquarters
     DoEvents
-    If (folder.FolderExists(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)) Then
+    If (folder.FolderExists(separateRoute(1) & splitRoute & yearNow & splitRoute & UCase(months) & splitRoute & "IMEDICAL" & splitRoute & item)) Then
 
-      Set archives = folder.getFolder(separateRoute(1) & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item)
+      Set archives = folder.getFolder(separateRoute(1) & splitRoute & yearNow & splitRoute & UCase(months) & splitRoute & "IMEDICAL" & splitRoute & item)
 
       For Each itemArchive In archives.Files
         '/* Proceso para la hoja Usuarios '*/
         If (VBA.InStr(itemArchive.Name, "US") = 1) Then
           ThisWorkbook.Worksheets("USUARIO").Select
-          nameArchive = VBA.Split(itemArchive.Name,".")
+          nameArchive = VBA.Split(itemArchive.Name, ".")
           Range("A1").Select
-          Selection.End(xlDown).Select
+          If Selection.Offset(1, 0) <> vbNullString Then
+            Selection.End(xlDown).Select
+          End If
           ActiveCell.Offset(1, 0).Select
           destiny = ActiveCell.Address
           With ActiveSheet.QueryTables.Add(Connection:= _
-            route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+            route & splitRoute & yearNow & splitRoute & UCase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
             , Destination:=Range(destiny))
             .Name = nameArchive(0)
             .TextFilePlatform = 65001
@@ -81,23 +85,12 @@ Public Sub iMedical()
             .Refresh BackgroundQuery:=False
           End With
           Do While Not IsEmpty(ActiveCell)
-            Select Case Trim(item)
-             Case "MEDELLIN"
-              ActiveCell.offset(,2) = Trim("EAS016")
-             Case "VILLAVICENCIO"
-              ActiveCell.offset(,2) = Trim("50000")
-             Case "POLO II","POLO I","CHICO","ZONA INDUSTRIAL","BOGOTA"
-              ActiveCell.offset(,2) = Trim("SDS001")
-             Case "PEREIRA"
-              ActiveCell.offset(,2) = Trim("66000")
-             Case "IBAGUE"
-              ActiveCell.offset(,2) = Trim("73000")
-             Case "CARTAGENA"
-              ActiveCell.offset(,2) = Trim("13001")
-             Case "BUCARAMANGA"
-              ActiveCell.offset(,2) = Trim("68000")
-            End Select
+            ActiveCell.Offset(, 2) = Trim(item.Offset(, 2).value)
+            If archives.Name <> "MEDELLIN" Then
+              ActiveCell.Offset(, 2).NumberFormat = "0"
+            End If
             ActiveCell.Offset(1, 0).Select
+            DoEvents
           Loop
           Cells.Select
           Cells.EntireColumn.AutoFit
@@ -107,13 +100,15 @@ Public Sub iMedical()
         Elseif (VBA.InStr(itemArchive.Name, "AF") = 1) Then
           '/* Proceso para la hoja Trans '*/
           ThisWorkbook.Worksheets("TRANS").Select
-          nameArchive = VBA.Split(itemArchive.Name,".")
+          nameArchive = VBA.Split(itemArchive.Name, ".")
           Range("B1").Select
-          Selection.End(xlDown).Select
+          If Selection.Offset(1, 0) <> vbNullString Then
+            Selection.End(xlDown).Select
+          End If
           ActiveCell.Offset(1, -1).Select
           destiny = ActiveCell.Address
           With ActiveSheet.QueryTables.Add(Connection:= _
-            route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+            route & splitRoute & yearNow & splitRoute & UCase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
             , Destination:=Range(destiny))
             .Name = nameArchive(0)
             .TextFilePlatform = 65001
@@ -123,24 +118,26 @@ Public Sub iMedical()
             .TextFileTrailingMinusNumbers = True
             .Refresh BackgroundQuery:=False
           End With
-          Do While Not IsEmpty(ActiveCell.Offset(,1))
-            Select Case Trim(item)
-             Case "MEDELLIN"
-              ActiveCell.offset(,8) = Trim("EAS016")
-             Case "VILLAVICENCIO"
-              ActiveCell.offset(,8) = Trim("50000")
-             Case "POLO II","POLO I","CHICO","ZONA INDUSTRIAL","BOGOTA"
-              ActiveCell.offset(,8) = Trim("SDS001")
-             Case "PEREIRA"
-              ActiveCell.offset(,8) = Trim("66000")
-             Case "IBAGUE"
-              ActiveCell.offset(,8) = Trim("73000")
-             Case "CARTAGENA"
-              ActiveCell.offset(,8) = Trim("13001")
-             Case "BUCARAMANGA"
-              ActiveCell.offset(,8) = Trim("68000")
+          Do While Not IsEmpty(ActiveCell.Offset(, 1))
+            Select Case Trim(item.Offset(, -2).value)
+             Case "BOGOTA"
+              For Each head In headquarters
+                If item.value = head.value Then
+                  ActiveCell.Offset(, 8) = Trim(item.Offset(, 2).value)
+                  ActiveCell = Trim(item.Offset(, 1).value)
+                 Exit For
+                End If
+              Next head
+             Case Else
+              ActiveCell.Offset(, 8) = Trim(item.Offset(, 2).value)
+              ActiveCell = Trim(item.Offset(, 1).value)
             End Select
+            If archives.Name <> "MEDELLIN" Then
+              ActiveCell.NumberFormat = "0"
+              ActiveCell.Offset(, 8).NumberFormat = "0"
+            End If
             ActiveCell.Offset(1, 0).Select
+            DoEvents
           Loop
           Cells.Select
           Cells.EntireColumn.AutoFit
@@ -150,13 +147,15 @@ Public Sub iMedical()
         Elseif (VBA.InStr(itemArchive.Name, "AC") = 1) Then
           '/* Proceso para la hoja Consulta '*/
           ThisWorkbook.Worksheets("CONSULTA").Select
-          nameArchive = VBA.Split(itemArchive.Name,".")
+          nameArchive = VBA.Split(itemArchive.Name, ".")
           Range("A1").Select
-          Selection.End(xlDown).Select
+          If Selection.Offset(1, 0) <> vbNullString Then
+            Selection.End(xlDown).Select
+          End If
           ActiveCell.Offset(1, 0).Select
           destiny = ActiveCell.Address
           With ActiveSheet.QueryTables.Add(Connection:= _
-            route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+            route & splitRoute & yearNow & splitRoute & UCase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
             , Destination:=Range(destiny))
             .Name = nameArchive(0)
             .TextFilePlatform = 65001
@@ -166,6 +165,14 @@ Public Sub iMedical()
             .TextFileTrailingMinusNumbers = True
             .Refresh BackgroundQuery:=False
           End With
+          Do While Not IsEmpty(ActiveCell)
+            ActiveCell.Offset(, 1) = Trim(item.Offset(, 1).value)
+            If archives.Name <> "MEDELLIN" Then
+              ActiveCell.Offset(, 1).NumberFormat = "0"
+            End If
+            ActiveCell.Offset(1, 0).Select
+            DoEvents
+          Loop
           Cells.Select
           Cells.EntireColumn.AutoFit
           Range("A1").Select
@@ -174,13 +181,15 @@ Public Sub iMedical()
         Elseif (VBA.InStr(itemArchive.Name, "AP") = 1) Then
           '/* Proceso para la hoja Procedimiento '*/
           ThisWorkbook.Worksheets("PROCEDIMIENTOS").Select
-          nameArchive = VBA.Split(itemArchive.Name,".")
+          nameArchive = VBA.Split(itemArchive.Name, ".")
           Range("A1").Select
-          Selection.End(xlDown).Select
+          If Selection.Offset(1, 0) <> vbNullString Then
+            Selection.End(xlDown).Select
+          End If
           ActiveCell.Offset(1, 0).Select
           destiny = ActiveCell.Address
           With ActiveSheet.QueryTables.Add(Connection:= _
-            route & splitRoute & yearNow & splitRoute & Ucase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
+            route & splitRoute & yearNow & splitRoute & UCase(months) & splitRoute & "IMEDICAL" & splitRoute & item & splitRoute & itemArchive.Name _
             , Destination:=Range(destiny))
             .Name = nameArchive(0)
             .TextFilePlatform = 65001
@@ -190,6 +199,14 @@ Public Sub iMedical()
             .TextFileTrailingMinusNumbers = True
             .Refresh BackgroundQuery:=False
           End With
+          Do While Not IsEmpty(ActiveCell)
+            ActiveCell.Offset(, 1) = Trim(item.Offset(, 1).value)
+            If archives.Name <> "MEDELLIN" Then
+              ActiveCell.Offset(, 1).NumberFormat = "0"
+            End If
+            ActiveCell.Offset(1, 0).Select
+            DoEvents
+          Loop
           Cells.Select
           Cells.EntireColumn.AutoFit
           Range("A1").Select
@@ -206,6 +223,6 @@ Public Sub iMedical()
     .EnableEvents = True
   End With
 
-  MsgBox "Importaci" &ChrW(243)& "n de informaci" &ChrW(243)& "n i-medical terminada",vbInformation,"Importar..." 
+  MsgBox "Importaci" & ChrW(243) & "n de informaci" & ChrW(243) & "n i-medical terminada", vbInformation, "Importar..." 
 
 End Sub
