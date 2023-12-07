@@ -53,7 +53,7 @@ Public Sub iMedical()
 
 
   splitRoute = Application.PathSeparator
-  route = "TEXT;C:\Users\SOANDES-DSOFT\Documents\Particion D\RIPS_SOANDES"
+  route = "TEXT;C:\Users\DESARROLLO\Documents\RIPS_SOANDES"
   separateRoute = VBA.Split(route, ";")
 
   For Each item In headquarters
