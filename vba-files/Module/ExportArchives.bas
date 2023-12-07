@@ -402,72 +402,72 @@ Public Sub importInfo()
 
   Set Reporte = ThisWorkbook
 
-  On Error GoTo Usuario
-  Set Usuario = Workbooks.Open(dirs & "\usuario.csv")
-  Range("A2").Select
-  ' Range("A2", "Z2").Select
-  Range(Selection, Selection.End(xlDown)).Select
-  Selection.Copy
+  ' On Error GoTo Usuario
+  ' Set Usuario = Workbooks.Open(dirs & "\usuario.csv")
+  ' Range("A2").Select
+  ' ' Range("A2", "Z2").Select
+  ' Range(Selection, Selection.End(xlDown)).Select
+  ' Selection.Copy
 
   '' USUARIO ''
   Windows(Reporte.Name).Activate
   Reporte.Worksheets("USUARIO").Select
   Range("A2").Select
-  ActiveSheet.Paste
-  Application.CutCopyMode = False
-  Range("A2").Select
-  Call splitUsers
-  Usuario.Close
+  ' ActiveSheet.Paste
+  ' Application.CutCopyMode = False
+  ' Range("A2").Select
+  ' Call splitUsers
+  ' Usuario.Close
 
-  Set Trans = Workbooks.Open(dirs & "\trans.csv")
-  Range("A2").Select
-  ' Range("A2", "Z2").Select
-  Range(Selection, Selection.End(xlDown)).Select
-  Selection.Copy
+  ' Set Trans = Workbooks.Open(dirs & "\trans.csv")
+  ' Range("A2").Select
+  ' ' Range("A2", "Z2").Select
+  ' Range(Selection, Selection.End(xlDown)).Select
+  ' Selection.Copy
 
   '' TRANS ''
   Windows(Reporte.Name).Activate
   Reporte.Worksheets("TRANS").Select
   Range("A2").Select
-  ActiveSheet.Paste
-  Application.CutCopyMode = False
-  Range("A2").Select
-  Call splitTrans
-  Trans.Close
+  ' ActiveSheet.Paste
+  ' Application.CutCopyMode = False
+  ' Range("A2").Select
+  ' Call splitTrans
+  ' Trans.Close
 
-  On Error GoTo Consulta
-  Set Consulta = Workbooks.Open(dirs & "\consulta.csv")
-  Range("A2").Select
-  ' Range("A2", "Z2").Select
-  Range(Selection, Selection.End(xlDown)).Select
-  Selection.Copy
+  ' On Error GoTo Consulta
+  ' Set Consulta = Workbooks.Open(dirs & "\consulta.csv")
+  ' Range("A2").Select
+  ' ' Range("A2", "Z2").Select
+  ' Range(Selection, Selection.End(xlDown)).Select
+  ' Selection.Copy
 
   '' CONSULTA ''
   Windows(Reporte.Name).Activate
   Reporte.Worksheets("CONSULTA").Select
   Range("A2").Select
-  ActiveSheet.Paste
-  Application.CutCopyMode = False
-  Range("A2").Select
-  Call splitQuery
-  Consulta.Close
+  ' ActiveSheet.Paste
+  ' Application.CutCopyMode = False
+  ' Range("A2").Select
+  ' Call splitQuery
+  ' Consulta.Close
 
-  On Error GoTo Procedimiento
-  Set Procedimiento = Workbooks.Open(dirs & "\procedimiento.csv")
-  Range("A2").Select
-  ' Range("A2", "Z2").Select
-  Range(Selection, Selection.End(xlDown)).Select
-  Selection.Copy
+  ' On Error GoTo Procedimiento
+  ' Set Procedimiento = Workbooks.Open(dirs & "\procedimiento.csv")
+  ' Range("A2").Select
+  ' ' Range("A2", "Z2").Select
+  ' Range(Selection, Selection.End(xlDown)).Select
+  ' Selection.Copy
 
   '' PROCEDIMIENTO ''
   Windows(Reporte.Name).Activate
   Reporte.Worksheets("PROCEDIMIENTOS").Select
   Range("A2").Select
-  ActiveSheet.Paste
-  Application.CutCopyMode = False
-  Range("A2").Select
-  Call splitProcedure
-  Procedimiento.Close
+  ' ActiveSheet.Paste
+  ' Application.CutCopyMode = False
+  ' Range("A2").Select
+  ' Call splitProcedure
+  ' Procedimiento.Close
 
   With Application
     .ScreenUpdating = True
