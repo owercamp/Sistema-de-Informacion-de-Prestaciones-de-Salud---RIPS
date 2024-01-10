@@ -3,7 +3,8 @@ Option Explicit
 
 Public Sub corretion_date()
   Dim sheet As String, date_value As String
-  Dim date_init As Date, date_final As Date, pos As String
+  Dim date_init As Date, date_final As Date, position As String
+  Dim counter As Long
 
   With Application
     .DisplayAlerts = False
@@ -14,56 +15,63 @@ Public Sub corretion_date()
 
   Select Case ActiveSheet.Name
    Case "TRANS"
-    date_init = DateSerial(Year(Date), Month(Date)-1, 1)
+    date_init = DateSerial(Year(Date), Month(Date) - 1, 1)
     date_final = DateSerial(Year(Date), Month(Date), 0)
 
     Range("F2").Select
+    counter = ActiveSheet.Range("F2", ActiveSheet.Range("F2").End(xlDown)).Count
     Do Until IsEmpty(ActiveCell)
-      Position = ActiveCell.Address
+      position = ActiveCell.Address
       ActiveCell.FormulaR1C1 = "=TEXT(""" & ActiveCell.Value & """,""dd/mm/yyyy"")"
-      ActiveCell.Copy
-      ActiveCell.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
-      :=False, Transpose:=False
-      Application.CutCopyMode = False
       ActiveCell.Offset(0, 1).FormulaR1C1 = "=TEXT(""" & date_init & """,""dd/mm/yyyy"")"
-      ActiveCell.Offset(0, 1).Copy
-      ActiveCell.Offset(0, 1).PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
-      :=False, Transpose:=False
-      Application.CutCopyMode = False
-      ActiveCell.Offset(0, 1).FormulaR1C1 = "=TEXT(""" & date_final & """,""dd/mm/yyyy"")"
-      ActiveCell.Offset(0, 1).Copy
-      ActiveCell.Offset(0, 1).PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
-      :=False, Transpose:=False
-      Application.CutCopyMode = False
-      Range(Position).Select
-      Application.StatusBar = CStr(ActiveCell.Row - 1)
+      ActiveCell.Offset(0, 2).FormulaR1C1 = "=TEXT(""" & date_final & """,""dd/mm/yyyy"")"
+      Range(position).Select
+      counter = counter - 1
+      Application.StatusBar = CStr(counter)
       ActiveCell.Offset(1, 0).Select
       DoEvents
     Loop
+    Range("F2:H2").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Application.Calculate
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
    Case "CONSULTA"
     Range("E2").Select
+    counter = ActiveSheet.Range("E2", ActiveSheet.Range("E2").End(xlDown)).Count
     Do Until IsEmpty(ActiveCell)
       ActiveCell.FormulaR1C1 = "=TEXT(""" & ActiveCell.Value & """,""dd/mm/yyyy"")"
-      ActiveCell.Copy
-      ActiveCell.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
-      :=False, Transpose:=False
-      Application.CutCopyMode = False
-      Application.StatusBar = CStr(ActiveCell.Row - 1)
+      counter = counter - 1
+      Application.StatusBar = CStr(counter)
       ActiveCell.Offset(1, 0).Select
       DoEvents
     Loop
+    Range("E2").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Application.Calculate
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
    Case "PROCEDIMIENTOS"
     Range("E2").Select
+    counter = ActiveSheet.Range("E2", ActiveSheet.Range("E2").End(xlDown)).Count
     Do Until IsEmpty(ActiveCell)
       ActiveCell.FormulaR1C1 = "=TEXT(""" & ActiveCell.Value & """,""dd/mm/yyyy"")"
-      ActiveCell.Copy
-      ActiveCell.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
-      :=False, Transpose:=False
-      Application.CutCopyMode = False
-      Application.StatusBar = CStr(ActiveCell.Row - 1)
+      counter = counter - 1
+      Application.StatusBar = CStr(counter)
       ActiveCell.Offset(1, 0).Select
       DoEvents
     Loop
+    Range("E2").Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Application.Calculate
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+    :=False, Transpose:=False
+    Application.CutCopyMode = False
   End Select
 
   With Application
@@ -72,5 +80,19 @@ Public Sub corretion_date()
     .Calculation = xlCalculationAutomatic
     .EnableEvents = True
   End With
+
+End Sub
+
+Public Sub corretionID()
+
+  Do Until IsEmpty(ActiveCell)
+    If IsNumeric(ActiveCell.Value) = True Then
+      ActiveCell.NumberFormat = "0"
+    Else
+      ActiveCell = Trim$(ActiveCell.Value)
+    End If
+    ActiveCell.Offset(1, 0).Select
+    DoEvents
+  Loop
 
 End Sub
